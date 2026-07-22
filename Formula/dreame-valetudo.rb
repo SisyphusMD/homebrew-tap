@@ -14,8 +14,8 @@ class DreameValetudo < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.1.0.tar.gz"
-  sha256 "ee93f31b61b66fe1bb85ead9e8f5e2ef4e0ffc9e4f3f4744b87452088072c6c6"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.1.1.tar.gz"
+  sha256 "6c5a1770076d27fccfe211d338b78b562d26f17b0969c7b2267ebe09e1da43a3"
   license "AGPL-3.0-or-later"
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
