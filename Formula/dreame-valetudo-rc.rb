@@ -13,8 +13,8 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.1.1-rc.2.tar.gz"
-  sha256 "331829c39b1dbdaae97ce56b800342987207c0d9442d8f34583dd8e4768d3e72"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.2.0-rc.1.tar.gz"
+  sha256 "c48c1ccc7556c98a3598b7bed60e5ad8b31eb0cbb1ce52e1c168554dcaf00387"
   license "AGPL-3.0-or-later"
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
@@ -29,7 +29,6 @@ class DreameValetudoRc < Formula
 
   def install
     virtualenv_install_with_resources
-    pkgshare.install "packaging/udev/99-dreame-valetudo.rules" if OS.linux?
   end
 
   def caveats
@@ -41,13 +40,16 @@ class DreameValetudoRc < Formula
       Just run `dreame-valetudo` (no arguments). On the first run it builds sunxi-fel from source
       (needs a compiler + network, one time) and fetches the pinned Valetudo binary. It talks to
       the robot over the robot's own Wi-Fi AP, not your LAN.
+
+      Your workspace lives under ~/dreame-valetudo/ (work/ + backups/). After upgrading, the first
+      run migrates it automatically, or run `dreame-valetudo migrate`. Uninstalling never touches
+      it: your factory backups under ~/dreame-valetudo/backups/ survive.
     EOS
     if OS.linux?
       s += <<~EOS
 
-        Linux USB access (so you don't need sudo): install the bundled udev rule once:
-          sudo install -m0644 #{pkgshare}/99-dreame-valetudo.rules /etc/udev/rules.d/
-          sudo udevadm control --reload-rules && sudo udevadm trigger
+        Linux only (not needed on macOS) — grant sudo-less USB access, once:
+          sudo dreame-valetudo install-udev
       EOS
     end
     s
