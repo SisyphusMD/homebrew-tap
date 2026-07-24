@@ -13,8 +13,8 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.2.0-rc.2.tar.gz"
-  sha256 "c768836e3565b3b0f75a14b3450bb4edd66085bfb94bf5326e7591d19e80805b"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.2.0-rc.3.tar.gz"
+  sha256 "e1dc7a28d65b68e355df884e361325036b77d39b9efdeda918fe7ccb5e932aec"
   license "AGPL-3.0-or-later"
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
