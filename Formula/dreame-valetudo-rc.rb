@@ -13,19 +13,23 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/archive/v0.2.0-rc.3.tar.gz"
-  sha256 "e1dc7a28d65b68e355df884e361325036b77d39b9efdeda918fe7ccb5e932aec"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.2/dreame-valetudo-0.3.0-rc.2.tar.gz"
+  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.2/dreame-valetudo-0.3.0-rc.2.tar.gz"
+  sha256 "1afa3c7588e1f3465d213dcf775c0cf4c51839c6d2f291037ba3f47c098eae5a"
   license "AGPL-3.0-or-later"
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
   conflicts_with "dreame-valetudo", because: "both install the dreame-valetudo command"
 
+  # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
+  # no Renovate manager covers this formula (see the python/cpython prBodyNotes in .renovaterc.json).
   depends_on "python@3.14"
   depends_on "libusb"       # the fastboot-over-libusb client + sunxi-fel load it at runtime
   depends_on "uv"           # runs the libusb fastboot client (fetches pyusb on first use)
   depends_on "dtc"          # libfdt (sunxi-fel is built from source on first run)
   depends_on "zlib"         # sunxi-fel's fel.c needs zlib.h (system on macOS, explicit for Linux)
   depends_on "pkg-config"
+  depends_on "tmux"         # every run is wrapped in a session so a lost terminal can't end it
 
   def install
     virtualenv_install_with_resources
