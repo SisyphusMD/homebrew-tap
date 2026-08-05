@@ -1,9 +1,11 @@
 # Homebrew formula for the PRERELEASE (release-candidate) channel of the personal tap.
 #
-# This is a SEPARATE formula from the stable `dreame-valetudo`, so `brew install
-# sisyphusmd/tap/dreame-valetudo-rc` tracks the newest `-rc.N` while the stable formula stays on the
-# last real release. It exists so a release candidate can be validated on hardware through the same
-# Homebrew path real users will take, without ever pointing the stable formula at a candidate build.
+# This is a SEPARATE formula from the stable `dreame-valetudo`. Between stable releases `brew install
+# sisyphusmd/tap/dreame-valetudo-rc` tracks the newest `-rc.N`; when a stable ships, update-tap.sh
+# re-points this formula at that stable tarball (fall-through), so the rc channel keeps resolving
+# after the now-superseded rc releases are pruned. It exists so a release candidate can be validated
+# on hardware through the same Homebrew path real users take, without pointing the stable formula at
+# a candidate build.
 # Same source-venv install as the stable formula (see dreame-valetudo.rb for the design notes).
 # The prerelease workflow fills in url/sha per rc.
 #
@@ -13,9 +15,9 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.2/dreame-valetudo-0.3.0-rc.2.tar.gz"
-  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.2/dreame-valetudo-0.3.0-rc.2.tar.gz"
-  sha256 "1afa3c7588e1f3465d213dcf775c0cf4c51839c6d2f291037ba3f47c098eae5a"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.3/dreame-valetudo-0.3.0-rc.3.tar.gz"
+  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.3/dreame-valetudo-0.3.0-rc.3.tar.gz"
+  sha256 "9e4079228dcfc999c8206260bd75f45229e0d3bb9aaa101abed991e6b86fd494"
   license "AGPL-3.0-or-later"
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
