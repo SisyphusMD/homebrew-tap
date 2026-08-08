@@ -15,16 +15,16 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.7/dreame-valetudo-0.3.0-rc.7.tar.gz"
-  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.7/dreame-valetudo-0.3.0-rc.7.tar.gz"
-  sha256 "4ad9d22360544b82f7bfa8ebade15a8d77b9cfbc41e5f4cd73963996f6016b5a"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.8/dreame-valetudo-0.3.0-rc.8.tar.gz"
+  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.8/dreame-valetudo-0.3.0-rc.8.tar.gz"
+  sha256 "75fb7a2ebba4f0c048bfde365a5e9125bc2c9fe26a1a4e5b56a778ffab55f082"
   license "AGPL-3.0-or-later"
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
   conflicts_with "dreame-valetudo", because: "both install the dreame-valetudo command"
 
-  # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
-  # no Renovate manager covers this formula (see the python/cpython prBodyNotes in .renovaterc.json).
+  # matches the interpreter the .pkg/.deb bundles freeze. No Renovate manager covers this formula,
+  # so packaging/refresh-pins.sh rewrites it from BUNDLE_PYTHON_VERSION as a postUpgradeTask.
   depends_on "python@3.14"
   depends_on "libusb"       # the fastboot-over-libusb client + sunxi-fel load it at runtime
   depends_on "uv"           # runs the libusb fastboot client (fetches pyusb on first use)
