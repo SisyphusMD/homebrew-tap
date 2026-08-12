@@ -14,8 +14,8 @@ class WhiskerlessRc < Formula
 
   desc "Fully-local MQTT control and telemetry for the Litter-Robot 4 (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/whiskerless"
-  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc11.tar.gz"
-  sha256 "60e2b29c7295df408d3fbed5f2c3afff2338c0a6d63d789711bc73e9af33452f"
+  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc12.tar.gz"
+  sha256 "cf2f7d37ac11861bd2b820704a919ff4a9f9eab74ce51a708deff93dfb04118a"
   license "MIT"
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
