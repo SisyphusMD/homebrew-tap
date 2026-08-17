@@ -14,8 +14,8 @@ class WhiskerlessRc < Formula
 
   desc "Fully-local MQTT control and telemetry for the Litter-Robot 4 (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/whiskerless"
-  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc26.tar.gz"
-  sha256 "0bfc7a6ce639c78f3e9cbefcddcc8710c43812307e2eda4177cac984827a677c"
+  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc27.tar.gz"
+  sha256 "43686c5c342f4628e5ea897b7d20584db8ffde332b625f7ee61b48b857bc2cbc"
   license "MIT"
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
@@ -90,7 +90,14 @@ class WhiskerlessRc < Formula
   end
   # END RESOURCES
 
+
   def install
+    # Do NOT let cargo strip the extension. cryptography's release profile
+    # strips symbols, and the resulting Mach-O is one dyld refuses outright
+    # ("mis-aligned LINKEDIT string pool") — the formula then installs cleanly
+    # and every command dies on import. Upstream's own wheel is unstripped and
+    # twice the size, which is the tell. Linux never sees this.
+    ENV["CARGO_PROFILE_RELEASE_STRIP"] = "none" if OS.mac?
     virtualenv_install_with_resources
   end
 
