@@ -20,10 +20,10 @@ class WhiskerlessRc < Formula
 
   bottle do
     root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.28"
-    sha256 cellar: :any, arm64_sequoia: "16cd0899b875fd454c81a70b3e627021f1405b95eba7a5385b1d7a1d5cc7d4b9"
-    sha256 cellar: :any, sequoia:       "fbe9b95646eda9d303064294f7995697ca2f3483a73606dbdc8c4543ed76f575"
-    sha256 cellar: :any, x86_64_linux:  "993483da1dd8ad0fa6ff1547ce3ab4587927b1764bffc94f8c08e6a41098ea19"
-    sha256 cellar: :any, arm64_linux:   "fd53d3a433673160797dd434e9e75e3a200fccff5386ed1ebf6662edf90808c9"
+    sha256 cellar: :any, arm64_sequoia: "48666fef8ceef6f5a0e98e135f1f69b7d8eb029bfa3f0717f146b16c4ea302d9"
+    sha256 cellar: :any, sequoia:       "114498c33991108d4ea91c53e4da52521bde740d9f703bdba562638dccfb6e52"
+    sha256 cellar: :any, x86_64_linux:  "8d5ec9f35d75acf5a6f7e9a72d1d757c980165909ec565b5a9b272ac0a2ee9d3"
+    sha256 cellar: :any, arm64_linux:   "5a0ad8ec2dbc212b54b7821bd20070c45a003c371050f34ac2570062f4c7e199"
   end
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
