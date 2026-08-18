@@ -15,9 +15,9 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.12/dreame-valetudo-0.3.0-rc.12.tar.gz"
-  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.12/dreame-valetudo-0.3.0-rc.12.tar.gz"
-  sha256 "d1a83ce1224edf89eb943e8e93fd5c1a67f22f63a433e1c090968ee5a2cdf946"
+  url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.14/dreame-valetudo-0.3.0-rc.14.tar.gz"
+  mirror "https://github.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.14/dreame-valetudo-0.3.0-rc.14.tar.gz"
+  sha256 "94bd76084f28dc294abae8a4460c76f102e381597c6a0b83a9c7293fb987ec30"
   license "AGPL-3.0-or-later"
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
@@ -27,11 +27,21 @@ class DreameValetudoRc < Formula
   # so packaging/refresh-pins.sh rewrites it from BUNDLE_PYTHON_VERSION as a postUpgradeTask.
   depends_on "python@3.14"
   depends_on "libusb"       # the fastboot-over-libusb client + sunxi-fel load it at runtime
-  depends_on "uv"           # runs the libusb fastboot client (fetches pyusb on first use)
+  depends_on "uv"           # fallback transport for the libusb fastboot client
   depends_on "dtc"          # libfdt (sunxi-fel is built from source on first run)
   depends_on "zlib"         # sunxi-fel's fel.c needs zlib.h (system on macOS, explicit for Linux)
   depends_on "pkg-config"
   depends_on "tmux"         # every run is wrapped in a session so a lost terminal can't end it
+
+  # Vendored into the same virtualenv as the package so USB work needs no network. The flash
+  # phases run while the host is joined to the robot's own Wi-Fi AP, which has no internet, and a
+  # transport that resolves pyusb from PyPI is therefore unavailable exactly where it is needed.
+  # No Renovate manager covers this formula; packaging/refresh-pins.sh rewrites it from
+  # PYUSB_VERSION alongside the python@ dependency.
+  resource "pyusb" do
+    url "https://files.pythonhosted.org/packages/source/p/pyusb/pyusb-1.3.1.tar.gz"
+    sha256 "3af070b607467c1c164f49d5b0caabe8ac78dbed9298d703a8dbf9df4052d17e"
+  end
 
   def install
     virtualenv_install_with_resources
