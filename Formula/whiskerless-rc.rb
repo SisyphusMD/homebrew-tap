@@ -14,17 +14,9 @@ class WhiskerlessRc < Formula
 
   desc "Fully-local MQTT control and telemetry for the Litter-Robot 4 (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/whiskerless"
-  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc43.tar.gz"
-  sha256 "fab0b44801b91db55c069a0ad3ebbfd35b5311548ee316b84a5f2c5fe61bd6d5"
+  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc44.tar.gz"
+  sha256 "574fcc36d2d6ca26e699d92d67e9b5409d072391cc614dafb166850b15781f04"
   license "MIT"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.43"
-    sha256 cellar: :any, arm64_sequoia: "896818ef0f8344512529eb04c485e4adfce3c905a546496bb762b426b1cf37a1"
-    sha256 cellar: :any, sequoia:       "ae9607cac0d5bd0c809ab068120260951cc8cb98730e12ce9bc16d19b54d4769"
-    sha256 cellar: :any, x86_64_linux:  "537da20eeb2fbd4cfb4cd744e3846ae64bda6d27ed32e2b03a8624589f322957"
-    sha256 cellar: :any, arm64_linux:   "3fedf573086c96c4453d4199fa87c7784c2d775045356a686085df9ce566f75d"
-  end
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
   # no Renovate manager covers this formula.
