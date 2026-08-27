@@ -15,17 +15,9 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc35.tar.gz"
-  sha256 "4f87b1e73f0496abe83fdb63c478887accf6b2ddd18c80563039273bed8af14e"
+  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc36.tar.gz"
+  sha256 "db87a2fd7a9531872a3e0bc4f1cc6b17ee37c66b66fdc65d672f4ec61ef05edb"
   license "GPL-3.0-or-later"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.35"
-    sha256 cellar: :any, arm64_sequoia: "1451101f13c34a88ebd17068d28f64c30ea7e0028dcd094abb9abd3688eb4d39"
-    sha256 cellar: :any, sequoia:       "306c46e1cbf4db8ce085fac78ff36949c9a143d6d62a788155ac2e74a6451265"
-    sha256 cellar: :any, x86_64_linux:  "976cd3508ffcbb534842dbd8295a678d8827c6de7ba1dda1b3c8f6d685303c62"
-    sha256 cellar: :any, arm64_linux:   "a72769a00e92d8de38623062882f49decc9dfdd9b4d49277958f0dfdb08515fa"
-  end
 
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
