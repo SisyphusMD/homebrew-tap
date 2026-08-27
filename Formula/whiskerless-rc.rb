@@ -14,17 +14,9 @@ class WhiskerlessRc < Formula
 
   desc "Fully-local MQTT control and telemetry for the Litter-Robot 4 (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/whiskerless"
-  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc53.tar.gz"
-  sha256 "8ea022e8bb5c7a5e7c7acc82ae72ff6809f3a98597e1d2f58e1d8b8e1deed4bf"
+  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc54.tar.gz"
+  sha256 "fb7fedd771e767a4157c6d5ac11a96459d98ea149bf0c051a46e3fbaaf2a3260"
   license "MIT"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.53"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f4b82262defcd1b297bd1dde1d2224a84ddae3275566d1691aa2495b12488193"
-    sha256 cellar: :any_skip_relocation, sequoia:       "1c3d0430bb3c8a9244e0234bfc75c988de846cc4eb34100b9260f115bbd2ecc3"
-    sha256 cellar: :any, x86_64_linux:                  "84236930bbba94f11607f0bdcc5c102deee2fa2daed3888dbfc4cd39927d8550"
-    sha256 cellar: :any, arm64_linux:                   "96d9e5168f1e6cff0b0ec2d69001ee1066c37e0dc50ae144103562dddd47d4c1"
-  end
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
   # no Renovate manager covers this formula.
@@ -56,17 +48,9 @@ class WhiskerlessRc < Formula
     url "https://files.pythonhosted.org/packages/45/8a/5acbd4da6a5a301fab56ff6d6e9e6b6945e6e4a2d1d213898c21b1d3a19b/bleak-2.1.1.tar.gz"
     sha256 "4600cc5852f2392ce886547e127623f188e689489c5946d422172adf80635cf9"
   end
-  resource "cffi" do
-    url "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz"
-    sha256 "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be"
-  end
   resource "paho-mqtt" do
     url "https://files.pythonhosted.org/packages/39/15/0a6214e76d4d32e7f663b109cf71fb22561c2be0f701d67f93950cd40542/paho_mqtt-2.1.0.tar.gz"
     sha256 "12d6e7511d4137555a3f6ea167ae846af2c7357b10bc6fa4f7c3968fc1723834"
-  end
-  resource "pycparser" do
-    url "https://files.pythonhosted.org/packages/1b/7d/92392ff7815c21062bea51aa7b87d45576f649f16458d78b7cf94b9ab2e6/pycparser-3.0.tar.gz"
-    sha256 "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29"
   end
   on_macos do
     resource "pyobjc-core" do
