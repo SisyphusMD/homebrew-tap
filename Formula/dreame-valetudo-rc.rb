@@ -19,6 +19,14 @@ class DreameValetudoRc < Formula
   sha256 "29dfba46339b507f9d5401a7afe554d6fd3350112472e25a2d084fdcc2fa3d69"
   license "GPL-3.0-or-later"
 
+  bottle do
+    root_url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.33"
+    sha256 cellar: :any, arm64_sequoia: "0efb7caf58350ce874ad98d2ae061eac3477e6ea83d24c6f5ce16496517a09d6"
+    sha256 cellar: :any, sequoia:       "2694616e2394323c14b280a7fecc1c002123f1f21d4457cf4491334ee6a32fc9"
+    sha256 cellar: :any, x86_64_linux:  "3a6054292a2e83f64c7145bbcc840199eb2e864fd25cb4bbf3d62323fdece681"
+    sha256 cellar: :any, arm64_linux:   "2629bf46aeadccee3fe346069ccd714dd759c66681a220303c11a94ecf92bec5"
+  end
+
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
   conflicts_with "dreame-valetudo", because: "both install the dreame-valetudo command"
