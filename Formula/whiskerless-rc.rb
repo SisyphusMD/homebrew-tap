@@ -14,32 +14,24 @@ class WhiskerlessRc < Formula
 
   desc "Fully-local MQTT control and telemetry for the Litter-Robot 4 (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/whiskerless"
-  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc52.tar.gz"
-  sha256 "f679b3bf188ee110bf63f3c50c7cb51b88f5215052dd6a199d9752fb22224f81"
+  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc53.tar.gz"
+  sha256 "8ea022e8bb5c7a5e7c7acc82ae72ff6809f3a98597e1d2f58e1d8b8e1deed4bf"
   license "MIT"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.52"
-    sha256 cellar: :any, arm64_sequoia: "1d561826ae7d832467070da79c94c713bdd144c1801b74b9ed0bd4f6700a24f5"
-    sha256 cellar: :any, sequoia:       "4c65bab7fbcc6e822c6e1ded3ce378654b14924c3ebbdfa413b3a8bf84afeb31"
-    sha256 cellar: :any, x86_64_linux:  "dd98a2786e8b5574ca2841cfb3aaaf6b08323d9418e9aaec3cbf05e760137bef"
-    sha256 cellar: :any, arm64_linux:   "233858ed989d7a30c59bf65657c94694794fb73371c8b9c8093c24cf900ef132"
-  end
 
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
   # no Renovate manager covers this formula.
   depends_on "python@3.14"
-  # cryptography's sdist is a Rust extension, and `virtualenv_install_with_resources` builds every
-  # resource from source — so the toolchain has to be here or the install dies on the first
-  # resource. It is the price of certificates being core function (the robot cannot send a
-  # username or password, so nothing else authenticates it); `brew install` compiles for minutes
-  # rather than seconds because of it. cffi needs libffi, which Homebrew's python already pulls.
   depends_on "openssl@3"
-  # pkgconf is NOT implied by rust: `rust` is build-only, so superenv prunes its
-  # recursive dependencies and the pkg-config binary never reaches PATH — while
-  # cryptography's openssl-sys crate uses it to find openssl@3.
-  depends_on "pkgconf" => :build
-  depends_on "rust" => :build
+  # Certificates are core function (the robot cannot send a username or password, so nothing else
+  # authenticates it), but this does NOT have to be a resource. As a resource it is built from its
+  # sdist like every other one, and its sdist is a Rust extension: ~21 minutes per platform per
+  # release, plus rust and llvm poured purely as build tooling, plus a workaround for the stripped
+  # Mach-O that dyld then refuses. Homebrew bottles cryptography for every platform this formula
+  # targets, so that compile is one somebody else has already done and users pour it in seconds.
+  # `:no_linkage` because nothing here links against it — the venv imports it, via the
+  # homebrew_deps.pth that virtualenv_create writes for every non-build dependency. It must
+  # therefore NOT become a `=> :build` dep, which that walk prunes.
+  depends_on "cryptography" => :no_linkage
 
   # Same `whiskerless` binary as the stable formula, so the two cannot coexist.
   conflicts_with "whiskerless", because: "both install the same whiskerless binary"
@@ -59,10 +51,6 @@ class WhiskerlessRc < Formula
   resource "cffi" do
     url "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz"
     sha256 "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be"
-  end
-  resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/de/41/6cbdcf9142d00fe82836fbb51e503e58088575cf7a0fe1dbff6695bf0840/cryptography-50.0.0.tar.gz"
-    sha256 "eeac2acb5a20ed25e0ad6d1df9891a520b78b404266b6d11778f25d5d691a6c9"
   end
   resource "paho-mqtt" do
     url "https://files.pythonhosted.org/packages/39/15/0a6214e76d4d32e7f663b109cf71fb22561c2be0f701d67f93950cd40542/paho_mqtt-2.1.0.tar.gz"
@@ -100,12 +88,6 @@ class WhiskerlessRc < Formula
 
 
   def install
-    # Do NOT let cargo strip the extension. cryptography's release profile
-    # strips symbols, and the resulting Mach-O is one dyld refuses outright
-    # ("mis-aligned LINKEDIT string pool") — the formula then installs cleanly
-    # and every command dies on import. Upstream's own wheel is unstripped and
-    # twice the size, which is the tell. Linux never sees this.
-    ENV["CARGO_PROFILE_RELEASE_STRIP"] = "none" if OS.mac?
     virtualenv_install_with_resources
   end
 
