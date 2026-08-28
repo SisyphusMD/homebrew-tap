@@ -15,8 +15,8 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc38.tar.gz"
-  sha256 "88829d7d75c62ec3aef6bd050f2aa0d9a66b8ba3d3cb7915e92f41963793bd9f"
+  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc39.tar.gz"
+  sha256 "bcda7ac787ab24ab27a271c7d001e73db605ae2d93bc7a2c2d8dd987e3f433ca"
   license "GPL-3.0-or-later"
 
 
@@ -27,7 +27,6 @@ class DreameValetudoRc < Formula
   # so packaging/refresh-pins.sh rewrites it from BUNDLE_PYTHON_VERSION as a postUpgradeTask.
   depends_on "python@3.14"
   depends_on "libusb"       # the fastboot-over-libusb client + sunxi-fel load it at runtime
-  depends_on "uv"           # fallback transport for the libusb fastboot client
   depends_on "dtc"          # libfdt (sunxi-fel is built from source on first run)
   depends_on "zlib"         # sunxi-fel's fel.c needs zlib.h (system on macOS, explicit for Linux)
   depends_on "pkg-config"
