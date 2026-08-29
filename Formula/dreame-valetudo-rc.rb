@@ -15,8 +15,8 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc41.tar.gz"
-  sha256 "6ecc678b11842da7f412f2845c16ee3882761cbefa12080fd377d1148c14e05a"
+  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc42.tar.gz"
+  sha256 "f7a93d44019bc1e5c5bd11efc96a358f7869d9f503df35c8b1f70c3ab8094fab"
   license "GPL-3.0-or-later"
 
 
