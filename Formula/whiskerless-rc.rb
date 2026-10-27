@@ -18,6 +18,13 @@ class WhiskerlessRc < Formula
   sha256 "07db1492b4381b2669846ef445c199bdab9d1d709a5baaff17344520f1d208e3"
   license "MIT"
 
+  bottle do
+    root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.69"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "feb4aecc8560692acd74fa2991fd200ec9739ff65e0f875b9f3f41703a5a2395"
+    sha256 cellar: :any, x86_64_linux:                  "21e9ed4e65ac5c90f1e3be8904d662c68ad18dd73dbf800936fba054dbc8fa59"
+    sha256 cellar: :any, arm64_linux:                   "af64dc64ce4e03cea59374bd8d143478c0daef815669c38dbd6bcc4537b687a9"
+  end
+
   # matches the interpreter the .pkg/.deb bundles freeze; bump by hand with each CPython minor —
   # no Renovate manager covers this formula.
   depends_on "python@3.14"
