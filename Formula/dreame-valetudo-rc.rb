@@ -15,16 +15,9 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc47.tar.gz"
-  sha256 "dc5146608aa3d221928acc6aec018fe97da2402412307ac750b433243b3c0f9b"
+  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc48.tar.gz"
+  sha256 "89351ada11095a1c90c6bcbd944e1fdd850564bc282a6a1ce24cc6fa9c251b60"
   license "GPL-3.0-or-later"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.47"
-    sha256 cellar: :any, arm64_sequoia: "c1d3a76cbed5094126823ae0db77cbb749de79ee6831912fd6e86967485545b7"
-    sha256 cellar: :any, x86_64_linux:  "6ddcc11fd0ac081f4297be0b3e1fc74ac295830bc41e87df6be31107f6421ed4"
-    sha256 cellar: :any, arm64_linux:   "bc5c31d8fc5731b4e2986a2bce4f27227591f2b0730aea92dd04012c2cf494d7"
-  end
 
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
@@ -32,7 +25,7 @@ class DreameValetudoRc < Formula
 
   # matches the interpreter the .pkg/.deb bundles freeze. No Renovate manager covers this formula,
   # so packaging/refresh-pins.sh rewrites it from BUNDLE_PYTHON_VERSION as a postUpgradeTask.
-  depends_on "python@3.14"
+  depends_on "python@3.15"
   depends_on "libusb"       # the fastboot-over-libusb client + sunxi-fel load it at runtime
   depends_on "dtc"          # libfdt (sunxi-fel is built from source on first run)
   depends_on "zlib"         # sunxi-fel's fel.c needs zlib.h (system on macOS, explicit for Linux)
@@ -66,7 +59,7 @@ class DreameValetudoRc < Formula
     # NOT virtualenv_install_with_resources: that pip-installs every resource, and sunxi-tools is
     # a C program. pyusb still rides along in the venv so the fastboot client works with no
     # network; the package itself stays stdlib-only.
-    venv = virtualenv_create(libexec/"venv", "python3.14")
+    venv = virtualenv_create(libexec/"venv", "python3.15")
     venv.pip_install resources.reject { |r| r.name == "sunxi-tools" }
     venv.pip_install buildpath
 
