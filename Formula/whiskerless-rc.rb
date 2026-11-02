@@ -18,6 +18,13 @@ class WhiskerlessRc < Formula
   sha256 "d64c6a2d7278bdea3f860b37d235fc35f1abc5fd7ca559d085aa36d9c2d7889f"
   license "MIT"
 
+  bottle do
+    root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.71"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b3943a108021a2045c20130d02846b5074073edd7c6eab4db7aadd5b8a0e0e99"
+    sha256 cellar: :any, x86_64_linux:                  "a36b5b50efb78df9a7ed8fd4797e3a70d0fd399b80c315a4c07f08083e462255"
+    sha256 cellar: :any, arm64_linux:                   "0dd18a78009824e330e9dd3ef96695ccd7b6f07a00a1fd036a0e206bd2ef8871"
+  end
+
   # matches the interpreter the .pkg/.deb bundles freeze. No Renovate manager covers this formula,
   # so packaging/refresh-pins.sh rewrites it from PYTHON_VERSION as a postUpgradeTask.
   depends_on "python@3.15"
