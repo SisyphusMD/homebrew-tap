@@ -15,8 +15,8 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc49.tar.gz"
-  sha256 "349c44518a5b3dcd128a8a44ee7175bf31eee4839067b0fd68a9bcc1ae127540"
+  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc50.tar.gz"
+  sha256 "c1e07fb238f301354a1eb46f90534e8d9e01be3479a28ee6433894fcb1e3ec97"
   license "GPL-3.0-or-later"
 
 
@@ -47,7 +47,7 @@ class DreameValetudoRc < Formula
   # substitution and no second digest that could drift out of sync with it.
   resource "sunxi-tools" do
     url "https://github.com/linux-sunxi/sunxi-tools.git",
-        revision: "a08a24a2aa5804bde7fa6ea8cdb08135d018da33"
+        revision: "34dfa20f8284273085666436e4cac09af19646c8"
   end
 
   resource "pyusb" do
