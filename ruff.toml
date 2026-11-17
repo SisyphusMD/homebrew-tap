@@ -1,0 +1,2 @@
+# The canonical gate scripts follow project-rules' Ruff configuration.
+extend-exclude = [".forgejo/scripts"]
