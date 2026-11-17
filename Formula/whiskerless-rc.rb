@@ -14,16 +14,9 @@ class WhiskerlessRc < Formula
 
   desc "Fully-local MQTT control and telemetry for the Litter-Robot 4 (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/whiskerless"
-  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc76.tar.gz"
-  sha256 "35e6b6adfb7a79190d118ddfecd9f6b8ac30a31066251d41cfbee967e3ed6139"
+  url "https://files.pythonhosted.org/packages/source/w/whiskerless/whiskerless-0.2.0rc77.tar.gz"
+  sha256 "91d1301d559062ec6f5cbad52364efa6fa47603783a4e7e0c8813e2957ae5992"
   license "MIT"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/download/v0.2.0-rc.76"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b7c8f1af2bcd79cc4aa0c5fc5d48a9a64bb2053f56b0404976c1ea28744dab26"
-    sha256 cellar: :any, x86_64_linux:                  "1108a267185e22cbd4ab9902b96e0deb71ef6e014dd950ee99ddc07fc24100e6"
-    sha256 cellar: :any, arm64_linux:                   "bf4e5ac69c0e75c4e24edf75878dfc6e398f18ccdf21db6886bd5e03b7439e5c"
-  end
 
   # matches the interpreter the .pkg/.deb bundles freeze. No Renovate manager covers this formula,
   # so packaging/refresh-pins.sh rewrites it from PYTHON_VERSION as a postUpgradeTask.
