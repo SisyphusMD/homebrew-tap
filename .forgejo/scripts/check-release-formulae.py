@@ -133,11 +133,22 @@ def render_template(template, tag, digest, block=""):
             .replace("REPLACE_BOTTLE_BLOCK\n", replacement))
 
 
+def untouched_newer_formulae(project, tag, before, after):
+    requested = version_key(project, f"{tag}.tar.gz")
+    return {
+        path for path, content in after.items()
+        if before.get(path) == content and version_key(project, formula_source(content)[0]) > requested
+    }
+
+
 def verify_formulae(project, tag, phase, before, after, changed, fetch=load_json,
                     read_template=load_text, digest_asset=asset_digest):
     paths = project_paths(project, tag)
     if not changed or not changed <= paths:
         raise ValueError("release PR changes paths outside its formula channel")
+    paths -= untouched_newer_formulae(project, tag, before, after)
+    if not paths:
+        return
     expected_filename, checksum = source_digest(project, tag, fetch)
     bottles = release_bottles(project, tag, fetch, digest_asset) if phase == "bottles" else {}
     release_url = f"{FORGE}/{OWNER}/{project}/releases/download/{tag}"

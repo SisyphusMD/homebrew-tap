@@ -81,7 +81,7 @@ class FormulaSubmissionTest(unittest.TestCase):
             ):
                 first = submit("dreame-valetudo", "v0.3.0-rc.51", "formula", artifact, "fixture", None, api)
                 retry = submit("dreame-valetudo", "v0.3.0-rc.51", "formula", artifact, "fixture", None, api)
-                self.assertEqual(first, {"state": "pending", "url": known[0]["html_url"]})
+                self.assertEqual(first, {"state": "pending", "url": known[0]["html_url"], "paths": [formula.as_posix()]})
                 self.assertEqual(retry, first)
                 self.assertEqual(git("rev-parse", "HEAD"), main)
                 self.assertEqual((checkout / formula).read_text(), "prior formula\n")
