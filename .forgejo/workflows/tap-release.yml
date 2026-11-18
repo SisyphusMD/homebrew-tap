@@ -1,0 +1,35 @@
+name: Tap release
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Formula provenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+
+      - name: Verify generated formulae from trusted code
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          FLOW: ${{ github.event.pull_request.flow }}
+        run: |
+          set -euo pipefail
+          [[ "$BRANCH" = tap/* ]] || exit 0
+          [[ "$HEAD_REPO" = "$GITHUB_REPOSITORY" && "$FLOW" = 0 ]]
+          [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ && "$BASE" =~ ^[0-9a-f]{40}$ ]]
+          git fetch --no-tags origin "$HEAD_SHA"
+          python3 -I .forgejo/scripts/check-release-formulae.py "$BRANCH" "$BASE" "$HEAD_SHA"
