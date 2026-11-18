@@ -13,6 +13,35 @@ submit = runpy.run_path(str(ROOT / ".forgejo/scripts/open-release-formula-pr.py"
 
 
 class FormulaSubmissionTest(unittest.TestCase):
+    def test_superseded_formula_does_not_open_a_pr_or_push(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            artifact = Path(scratch)
+            path = "Formula/dreame-valetudo-rc.rb"
+            content = (
+                b'  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc52.tar.gz"\n'
+                + b'  sha256 "' + b"1" * 64 + b'"\n'
+            )
+            (artifact / "Formula").mkdir()
+            (artifact / path).write_bytes(content)
+            forge = submit.__globals__["FORGE"]
+            commands = {
+                ("rev-parse", "--show-toplevel"): str(Path.cwd()),
+                ("remote", "get-url", "origin"): f"{forge}/SisyphusMD/homebrew-tap.git",
+                ("status", "--porcelain"): "",
+                ("fetch", "--no-tags", "origin", "refs/heads/main:refs/remotes/origin/main"): "",
+                ("rev-parse", "origin/main"): "a" * 40,
+            }
+
+            def api(*_):
+                self.fail("a superseded release must not contact the pull request API")
+
+            with patch.dict(submit.__globals__, {
+                "git": lambda *args: commands[args],
+                "current_values": lambda *_: {path: content},
+            }):
+                result = submit("dreame-valetudo", "v0.3.0-rc.51", "formula", artifact, "fixture", None, api)
+            self.assertEqual(result, {"state": "superseded"})
+
     def test_submits_only_candidate_and_reuses_pull_request(self):
         with tempfile.TemporaryDirectory() as scratch:
             fixture = Path(scratch)
