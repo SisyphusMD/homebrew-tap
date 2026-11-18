@@ -83,9 +83,17 @@ def submit(project, tag, phase, artifact, token, git_env, request=api):
     rendered = read_artifact(artifact, paths)
     git("fetch", "--no-tags", "origin", "refs/heads/main:refs/remotes/origin/main")
     base = git("rev-parse", "origin/main")
-    if current_values(base, paths) == rendered:
+    base_values = current_values(base, paths)
+    changed = sorted(path for path, data in rendered.items() if base_values.get(path) != data)
+    if not changed:
         texts = {path: content.decode("utf-8") for path, content in rendered.items()}
-        landed_phase = "bottles" if all(validation["bottle_block"](text) for text in texts.values()) else phase
+        superseded = validation["untouched_newer_formulae"](project, tag, texts, texts)
+        still_current = texts.keys() - superseded
+        if not still_current:
+            return {"state": "superseded"}
+        landed_phase = phase
+        if all(validation["bottle_block"](texts[path]) for path in still_current):
+            landed_phase = "bottles"
         validation["verify_formulae"](project, tag, landed_phase, texts, texts, paths)
         return {"state": "landed"}
 
@@ -113,7 +121,7 @@ def submit(project, tag, phase, artifact, token, git_env, request=api):
     if not advertised or candidate != parent:
         git("push", "origin", f"{candidate}:{full_ref}", env=git_env)
     if known:
-        return {"state": "pending", "url": known[0]["html_url"]}
+        return {"state": "pending", "url": known[0]["html_url"], "paths": changed}
 
     body = (
         "Refs #6.\n\n"
@@ -127,7 +135,7 @@ def submit(project, tag, phase, artifact, token, git_env, request=api):
     })
     if pr["head"]["sha"] != candidate:
         raise ValueError("Forgejo did not open the prepared formula commit")
-    return {"state": "pending", "url": pr["html_url"]}
+    return {"state": "pending", "url": pr["html_url"], "paths": changed}
 
 
 if __name__ == "__main__":

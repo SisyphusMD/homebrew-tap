@@ -74,3 +74,21 @@ class ReleaseFormulaTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "three bottles"):
             verify_fixture("bottles", {PATH: SOURCE},
                            {PATH: BOTTLED.replace("  end\n", '    root_url  "https://example.test"\n  end\n')})
+
+    def test_already_superseded_rc_is_untouched(self):
+        live = {PATH: SOURCE.replace("rc51", "rc52")}
+        verify(PROJECT, TAG, "formula", live, live, {PATH}, fetch=lambda _: self.fail("superseded tag was fetched"))
+
+    def test_stable_can_advance_without_replacing_newer_candidate(self):
+        requested = "v0.3.0"
+        stable_path = f"Formula/{PROJECT}.rb"
+        newer_rc = SOURCE.replace("0.3.0rc51", "0.4.0rc1")
+        stable = SOURCE.replace("0.3.0rc51", "0.3.0")
+        before = {PATH: newer_rc}
+        after = {PATH: newer_rc, stable_path: stable}
+        pypi = {"urls": [{"packagetype": "sdist", "filename": SDIST.replace("rc51", ""),
+                          "digests": {"sha256": CHECKSUM}}]}
+        verify(PROJECT, requested, "formula", before, after, {stable_path}, lambda _: pypi, lambda _: TEMPLATE)
+        with self.assertRaisesRegex(ValueError, "replace a newer release"):
+            verify(PROJECT, requested, "formula", before, {stable_path: stable, PATH: stable},
+                   {stable_path, PATH}, lambda _: pypi, lambda _: TEMPLATE)
