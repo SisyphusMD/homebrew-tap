@@ -23,7 +23,7 @@
   "closed_at": "2026-11-17T14:12:20-08:00",
   "comments": [],
   "created_at": "2026-11-17T14:09:37-08:00",
-  "head": "ci/adopt-project-rules",
+  "head": "refs/pull/2/head",
   "kind": "pull",
   "labels": [],
   "merge_commit_sha": "cd7a3f8d21ab7ae7252170fc4360ecf5deee388a",
@@ -33,6 +33,360 @@
   "reviews": [],
   "state": "closed",
   "title": "Adopt the SisyphusMD project rules",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Part of SisyphusMD/project-rules#86 and #1 here. Move the Dreame and Whiskerless formula/bottle publishers to PRs so tap main can reject direct pushes. Preserve formula and bottle order, provenance, and retry behavior. Prove both publishers before enabling protection.",
+  "closed_at": "2026-11-17T23:57:32-08:00",
+  "comments": [
+   {
+    "body": "Codex is mapping the existing two-pass formula/bottle handshake before changing any publisher. Generated update issue #6 will be the stable PR reference.",
+    "created_at": "2026-11-17T18:16:07-08:00",
+    "id": 36774,
+    "updated_at": "2026-11-17T18:16:07-08:00",
+    "user": "cody"
+   },
+   {
+    "body": "Publisher code is ready. dreame-valetudo #303 and whiskerless #227 both merged with green exact-head checks and verified mirrors. Both pin Tap #11 at c8bb9a5b3a54c841375a5a3b619c98a377cb75be. Tap draft #12 verified the negative checks and is closed.\n\nBlocked on Cody’s approval to publish Dreame v0.3.0-rc.52 and Whiskerless v0.2.0-rc.78. Once approved, do one candidate at a time. Verify source formula PR, bottle build, bottle PR and install in order, then require current-branch protection and all verified contexts.",
+    "created_at": "2026-11-17T20:40:39-08:00",
+    "id": 37075,
+    "updated_at": "2026-11-17T20:40:39-08:00",
+    "user": "cody"
+   },
+   {
+    "body": "Decision: Publish Dreame v0.3.0-rc.52 and Whiskerless v0.2.0-rc.78 for live Tap verification. Why: Cody said “Do it then” after the rollout reported those two pending public prereleases.\n\nDecided by: Cody, 2026-11-17.",
+    "created_at": "2026-11-17T22:50:18-08:00",
+    "id": 37169,
+    "updated_at": "2026-11-17T22:50:18-08:00",
+    "user": "cody"
+   },
+   {
+    "body": "Dreame v0.3.0-rc.52 generated formula PR #13 and bottles PR #14. Its exact-tag install matrix passed on both Linux architectures and both macOS versions, including the bottle pours.\n\nhttps://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/actions/runs/1835\n\nWhiskerless v0.2.0-rc.78 generated formula PR #15 and bottles PR #16. Its exact-tag install matrix passed on both Linux architectures and both macOS versions, including the bottle pours.\n\nhttps://forgejo.bryantserver.com/SisyphusMD/whiskerless/actions/runs/1417\n\nThe formula PR landed before bottle builds in both releases. All four generated PRs passed the provenance check. Independently verified all 18 bottle downloads across Forgejo, NAS and GitHub against the merged formulas. Both Tap mirrors match. Verified strict main protection on e5b884b9779569f0919cae017e6d835a791bf042 with 8 required contexts. Direct pushes are disabled for all users, including admins. PRs must be up to date.",
+    "created_at": "2026-11-17T23:57:32-08:00",
+    "id": 37307,
+    "updated_at": "2026-11-17T23:57:32-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-17T14:18:45-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:feature"
+  ],
+  "milestone": null,
+  "number": 3,
+  "state": "closed",
+  "title": "Publish formula updates through pull requests",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Part of SisyphusMD/project-rules#76. Copy the canonical mirror-lockdown workflow to close and lock GitHub pull requests. Verify the mirror can sync workflow files, then enable Actions limited to the pinned lockdown action.",
+  "closed_at": "2026-11-17T14:42:56-08:00",
+  "comments": [],
+  "created_at": "2026-11-17T14:35:07-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 4,
+  "state": "closed",
+  "title": "Lock down the read-only GitHub mirror",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #4\n\nCopy the project-rules workflow that redirects new GitHub pull requests to Forgejo. The GitHub mirror will enable only the pinned lockdown action after the workflow is mirrored.\n\nValidated the canonical file with actionlint and yamllint.",
+  "closed_at": "2026-11-17T14:42:55-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `846460fbff`: The mirror-lockdown workflow is well-structured: pinned action, minimal permissions, correct `if` guard against Forgejo/forks, and a helpful PR comment. One concern about the exclusion date potentially disabling the workflow.\n\n### Open\n\n- **F1** (suggestion, `.github/workflows/mirror-lockdown.yml:26`) exclude-pr-created-before may be in the future, disabling the workflow: `exclude-pr-created-before: \"2026-11-17T00:00:00Z\"` excludes every PR created before that timestamp. If the workflow is merged and activated before 2026-11-17, all PRs—including ones opened the same day—were created before the cutoff, so neither the `pull_request_target` trigger nor the schedule sweep would close anything. The workflow would be a no-op until that date. If 2026-11-17 is the intended go-live date, consider adding a comment saying so; otherwise set the value to the date the lockdown is actually enabled on the mirror so that new PRs are closed immediately.\n\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W3siaWQiOiAiRjEiLCAiZmlsZSI6ICIuZ2l0aHViL3dvcmtmbG93cy9taXJyb3ItbG9ja2Rvd24ueW1sIiwgImxpbmUiOiAyNiwgInNldmVyaXR5IjogInN1Z2dlc3Rpb24iLCAic3RhdHVzIjogIm9wZW4iLCAidGl0bGUiOiAiZXhjbHVkZS1wci1jcmVhdGVkLWJlZm9yZSBtYXkgYmUgaW4gdGhlIGZ1dHVyZSwgZGlzYWJsaW5nIHRoZSB3b3JrZmxvdyIsICJkZXRhaWwiOiAiYGV4Y2x1ZGUtcHItY3JlYXRlZC1iZWZvcmU6IFwiMjAyNi0xMS0xN1QwMDowMDowMFpcImAgZXhjbHVkZXMgZXZlcnkgUFIgY3JlYXRlZCBiZWZvcmUgdGhhdCB0aW1lc3RhbXAuIElmIHRoZSB3b3JrZmxvdyBpcyBtZXJnZWQgYW5kIGFjdGl2YXRlZCBiZWZvcmUgMjAyNi0xMS0xNywgYWxsIFBSc1x1MjAxNGluY2x1ZGluZyBvbmVzIG9wZW5lZCB0aGUgc2FtZSBkYXlcdTIwMTR3ZXJlIGNyZWF0ZWQgYmVmb3JlIHRoZSBjdXRvZmYsIHNvIG5laXRoZXIgdGhlIGBwdWxsX3JlcXVlc3RfdGFyZ2V0YCB0cmlnZ2VyIG5vciB0aGUgc2NoZWR1bGUgc3dlZXAgd291bGQgY2xvc2UgYW55dGhpbmcuIFRoZSB3b3JrZmxvdyB3b3VsZCBiZSBhIG5vLW9wIHVudGlsIHRoYXQgZGF0ZS4gSWYgMjAyNi0xMS0xNyBpcyB0aGUgaW50ZW5kZWQgZ28tbGl2ZSBkYXRlLCBjb25zaWRlciBhZGRpbmcgYSBjb21tZW50IHNheWluZyBzbzsgb3RoZXJ3aXNlIHNldCB0aGUgdmFsdWUgdG8gdGhlIGRhdGUgdGhlIGxvY2tkb3duIGlzIGFjdHVhbGx5IGVuYWJsZWQgb24gdGhlIG1pcnJvciBzbyB0aGF0IG5ldyBQUnMgYXJlIGNsb3NlZCBpbW1lZGlhdGVseS4iLCAicmVzcG9uc2UiOiAiIn1d -->",
+    "created_at": "2026-11-17T14:39:17-08:00",
+    "id": 36588,
+    "updated_at": "2026-11-17T14:39:17-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T14:37:55-08:00",
+  "head": "refs/pull/5/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "65aa04b373c03af3e785ca615e5390c26ee4870a",
+  "merged": true,
+  "milestone": null,
+  "number": 5,
+  "reviews": [],
+  "state": "closed",
+  "title": "Close pull requests opened on the GitHub mirror",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Standing issue for the separate formula and bottle-update pull requests generated by Dreame and Whiskerless release publishers. Each update should identify its source repository, release tag, and stage. This issue stays open. Migration is tracked in #3.",
+  "closed_at": null,
+  "comments": [],
+  "created_at": "2026-11-17T18:16:06-08:00",
+  "kind": "issue",
+  "labels": [
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 6,
+  "state": "open",
+  "title": "Generated formula and bottle updates",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "First step of #3. Add the trusted validation for generated release formula and bottles PRs, with package and manifest provenance and monotonically advancing versions. Provide a narrow branch-only PR submitter so the sibling release jobs can switch without a direct main push. Prove the gate and submitter with fixtures before rewiring native publishers.",
+  "closed_at": "2026-11-17T19:14:20-08:00",
+  "comments": [],
+  "created_at": "2026-11-17T18:48:46-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 7,
+  "state": "closed",
+  "title": "Validate and submit generated formula pull requests",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #7. Refs #3.\n\nSeparate artifact rendering from the write token. Check the exact tagged Ruby template, the published PyPI source digest and the bottle archive bytes and manifests. Submit only a normal generated branch and PR with a standing issue reference. Use a temporary Git index to leave the checkout on its trusted tree; rerun submissions to bring open branches up to date on main.\n\nSix local tests passed, including publication without writing main, refreshing a stale PR, same-tag repair, and rejection of changed declarations. The current release candidate formulas for both projects verified against their actual public templates, PyPI releases, manifests and archives. Hosted Tests covers Ruby syntax. Tap #3 remains open for the sibling publishers and branch protection.\n\nLarge diff: Keep the validator, branch-only submitter, trusted check and regression fixtures in one change so neither publisher can pin a partial contract.",
+  "closed_at": "2026-11-17T19:14:20-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `d0d312bf4d`: Well-structured PR adding a release formula validator and branch-only PR submitter with correct security model (pull_request_target on base checkout, same-repo enforcement, temporary git index). Tests cover the key invariants: phase ordering, provenance, downgrade rejection, and submission lifecycle. No blocking issues found.\n\n### Resolved\n\n- **F1** (suggestion, `.forgejo/scripts/check-release-formulae.py:1`) Diff size exceeds 400 lines without a Large diff justification: The PR description now includes 'Large diff: Keep the validator, branch-only submitter, trusted check and regression fixtures in one change so neither publisher can pin a partial contract.' which satisfies rule 8's exception.\n  - Reviewer: The Large diff justification is present in the PR description; withdrawing.\n\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W3siaWQiOiAiRjEiLCAiZmlsZSI6ICIuZm9yZ2Vqby9zY3JpcHRzL2NoZWNrLXJlbGVhc2UtZm9ybXVsYWUucHkiLCAibGluZSI6IDEsICJzZXZlcml0eSI6ICJzdWdnZXN0aW9uIiwgInN0YXR1cyI6ICJyZXNvbHZlZCIsICJ0aXRsZSI6ICJEaWZmIHNpemUgZXhjZWVkcyA0MDAgbGluZXMgd2l0aG91dCBhIExhcmdlIGRpZmYganVzdGlmaWNhdGlvbiIsICJkZXRhaWwiOiAiVGhlIFBSIGRlc2NyaXB0aW9uIG5vdyBpbmNsdWRlcyAnTGFyZ2UgZGlmZjogS2VlcCB0aGUgdmFsaWRhdG9yLCBicmFuY2gtb25seSBzdWJtaXR0ZXIsIHRydXN0ZWQgY2hlY2sgYW5kIHJlZ3Jlc3Npb24gZml4dHVyZXMgaW4gb25lIGNoYW5nZSBzbyBuZWl0aGVyIHB1Ymxpc2hlciBjYW4gcGluIGEgcGFydGlhbCBjb250cmFjdC4nIHdoaWNoIHNhdGlzZmllcyBydWxlIDgncyBleGNlcHRpb24uIiwgInJlc3BvbnNlIjogIlRoZSBMYXJnZSBkaWZmIGp1c3RpZmljYXRpb24gaXMgcHJlc2VudCBpbiB0aGUgUFIgZGVzY3JpcHRpb247IHdpdGhkcmF3aW5nLiJ9XQ== -->",
+    "created_at": "2026-11-17T19:12:40-08:00",
+    "id": 36885,
+    "updated_at": "2026-11-17T19:13:25-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T19:10:07-08:00",
+  "head": "refs/pull/8/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "cc335d7cb146fd1b32fea803d7a838a142443efa",
+  "merged": true,
+  "milestone": null,
+  "number": 8,
+  "reviews": [],
+  "state": "closed",
+  "title": "Verify and submit release formula updates through PRs",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Part of #3 and SisyphusMD/project-rules#76. Record the standard checks, Ruby syntax and generated formula provenance on a deliberate failing draft. Never merge the draft. Positive generated formula proof comes from the Dreame and Whiskerless publishers. Protection is still blocked until both release publishers prove their two PRs.",
+  "closed_at": "2026-11-17T23:57:32-08:00",
+  "comments": [
+   {
+    "body": "Draft #12 is proving expected failures on 799f8d2531829693c156eec396324a942ec85e89. It contains only synthetic fixtures and malformed Ruby and must never merge. The current publisher PRs still need a real ordered source-and-bottle proof.",
+    "created_at": "2026-11-17T19:40:35-08:00",
+    "id": 36933,
+    "updated_at": "2026-11-17T19:40:35-08:00",
+    "user": "cody"
+   },
+   {
+    "body": "Draft #12 at 799f8d2531829693c156eec396324a942ec85e89 deliberately failed all nine reported contexts. Verified exact diagnostics: missing issue reference, code without tests, diff over size, unused import, one synthetic scanner match, AI-review size refusal, formula changes outside the generated channel, and invalid Ruby. The draft is closed unmerged. Positive generated provenance and strict protection remain dependent on #3's publisher proof.",
+    "created_at": "2026-11-17T19:46:14-08:00",
+    "id": 36950,
+    "updated_at": "2026-11-17T19:46:14-08:00",
+    "user": "cody"
+   },
+   {
+    "body": "Closed failing draft #12 exercised every required context, including Ruby syntax and generated formula provenance. The exact heads of real publisher PRs #13, #14, #15 and #16 passed all checks. Verified strict main protection on e5b884b9779569f0919cae017e6d835a791bf042 with 8 required contexts. Direct pushes are disabled for all users, including admins. PRs must be up to date.",
+    "created_at": "2026-11-17T23:57:32-08:00",
+    "id": 37313,
+    "updated_at": "2026-11-17T23:57:32-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-17T19:28:08-08:00",
+  "kind": "issue",
+  "labels": [],
+  "milestone": null,
+  "number": 9,
+  "state": "closed",
+  "title": "Prove Tap required checks before protecting main",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Part of #3. A tagged publisher re-run can see a newer RC formula already on main. Preserve an unchanged newer formula and verify the requested release on every path being updated. If every path was superseded, return a no-op. This keeps old releases repairable without downgrading the tap or allowing unverified content into a PR. Dreame #302 and Whiskerless #224 will pin the fixed helper.",
+  "closed_at": "2026-11-17T19:53:47-08:00",
+  "comments": [],
+  "created_at": "2026-11-17T19:31:18-08:00",
+  "kind": "issue",
+  "labels": [],
+  "milestone": null,
+  "number": 10,
+  "state": "closed",
+  "title": "Preserve already-newer channels when replaying a release",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #10. Refs #3.\n\nRecognize a no-op only when every rendered file equals an already-newer file on main. A stable candidate may update its stable formula while keeping the exact newer RC formula. Keep validating every changed path and have the caller wait only for the paths the PR actually changes.\n\nEight local tests and Ruff passed. The release fixtures verify an unchanged newer RC, stable-only updates and rejection of replacing a newer formula.",
+  "closed_at": "2026-11-17T19:53:47-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `3f539c9387`: The PR correctly preserves newer RC formulae during stable replays, adds a 'superseded' state, and returns changed paths for callers. The previously-flagged missing test for the superseded branch is now covered by the new test_superseded_formula_does_not_open_a_pr_or_push test, and the verify_formulae logic is exercised by two additional tests.\n\n### Resolved\n\n- **F1** (blocking, `.forgejo/scripts/open-release-formula-pr.py:91`) No test for the new 'superseded' state returned by submit(): The submit() function now returns {\"state\": \"superseded\"} when every rendered path is an already-newer formula on main. This is a new caller-visible contract (previously this scenario returned \"landed\"). Rule 12 requires a test for every new behaviour. The existing test_already_superseded_rc_is_untouched exercises verify_formulae's early return, but nothing drives submit() through the `if not still_current: return {\"state\": \"superseded\"}` branch. Add a test in test_formula_submission.py that sets up a base whose formula version is newer than the requested tag, calls submit(), and asserts the return is {\"state\": \"superseded\"} with no push or PR creation.\n  - Reviewer: Resolved by the new test_superseded_formula_does_not_open_a_pr_or_push, which patches current_values to return identical content (making changed empty), lets the real untouched_newer_formulae identify the rc52 formula as newer than the requested rc51 tag, and asserts the return is {\"state\": \"superseded\"} with the api callable set to self.fail to prove no PR API contact.\n\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W3siaWQiOiAiRjEiLCAiZmlsZSI6ICIuZm9yZ2Vqby9zY3JpcHRzL29wZW4tcmVsZWFzZS1mb3JtdWxhLXByLnB5IiwgImxpbmUiOiA5MSwgInNldmVyaXR5IjogImJsb2NraW5nIiwgInN0YXR1cyI6ICJyZXNvbHZlZCIsICJ0aXRsZSI6ICJObyB0ZXN0IGZvciB0aGUgbmV3ICdzdXBlcnNlZGVkJyBzdGF0ZSByZXR1cm5lZCBieSBzdWJtaXQoKSIsICJkZXRhaWwiOiAiVGhlIHN1Ym1pdCgpIGZ1bmN0aW9uIG5vdyByZXR1cm5zIHtcInN0YXRlXCI6IFwic3VwZXJzZWRlZFwifSB3aGVuIGV2ZXJ5IHJlbmRlcmVkIHBhdGggaXMgYW4gYWxyZWFkeS1uZXdlciBmb3JtdWxhIG9uIG1haW4uIFRoaXMgaXMgYSBuZXcgY2FsbGVyLXZpc2libGUgY29udHJhY3QgKHByZXZpb3VzbHkgdGhpcyBzY2VuYXJpbyByZXR1cm5lZCBcImxhbmRlZFwiKS4gUnVsZSAxMiByZXF1aXJlcyBhIHRlc3QgZm9yIGV2ZXJ5IG5ldyBiZWhhdmlvdXIuIFRoZSBleGlzdGluZyB0ZXN0X2FscmVhZHlfc3VwZXJzZWRlZF9yY19pc191bnRvdWNoZWQgZXhlcmNpc2VzIHZlcmlmeV9mb3JtdWxhZSdzIGVhcmx5IHJldHVybiwgYnV0IG5vdGhpbmcgZHJpdmVzIHN1Ym1pdCgpIHRocm91Z2ggdGhlIGBpZiBub3Qgc3RpbGxfY3VycmVudDogcmV0dXJuIHtcInN0YXRlXCI6IFwic3VwZXJzZWRlZFwifWAgYnJhbmNoLiBBZGQgYSB0ZXN0IGluIHRlc3RfZm9ybXVsYV9zdWJtaXNzaW9uLnB5IHRoYXQgc2V0cyB1cCBhIGJhc2Ugd2hvc2UgZm9ybXVsYSB2ZXJzaW9uIGlzIG5ld2VyIHRoYW4gdGhlIHJlcXVlc3RlZCB0YWcsIGNhbGxzIHN1Ym1pdCgpLCBhbmQgYXNzZXJ0cyB0aGUgcmV0dXJuIGlzIHtcInN0YXRlXCI6IFwic3VwZXJzZWRlZFwifSB3aXRoIG5vIHB1c2ggb3IgUFIgY3JlYXRpb24uIiwgInJlc3BvbnNlIjogIlJlc29sdmVkIGJ5IHRoZSBuZXcgdGVzdF9zdXBlcnNlZGVkX2Zvcm11bGFfZG9lc19ub3Rfb3Blbl9hX3ByX29yX3B1c2gsIHdoaWNoIHBhdGNoZXMgY3VycmVudF92YWx1ZXMgdG8gcmV0dXJuIGlkZW50aWNhbCBjb250ZW50IChtYWtpbmcgY2hhbmdlZCBlbXB0eSksIGxldHMgdGhlIHJlYWwgdW50b3VjaGVkX25ld2VyX2Zvcm11bGFlIGlkZW50aWZ5IHRoZSByYzUyIGZvcm11bGEgYXMgbmV3ZXIgdGhhbiB0aGUgcmVxdWVzdGVkIHJjNTEgdGFnLCBhbmQgYXNzZXJ0cyB0aGUgcmV0dXJuIGlzIHtcInN0YXRlXCI6IFwic3VwZXJzZWRlZFwifSB3aXRoIHRoZSBhcGkgY2FsbGFibGUgc2V0IHRvIHNlbGYuZmFpbCB0byBwcm92ZSBubyBQUiBBUEkgY29udGFjdC4ifV0= -->",
+    "created_at": "2026-11-17T19:41:51-08:00",
+    "id": 36937,
+    "updated_at": "2026-11-17T19:53:12-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T19:35:37-08:00",
+  "head": "refs/pull/11/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "c8bb9a5b3a54c841375a5a3b619c98a377cb75be",
+  "merged": true,
+  "milestone": null,
+  "number": 11,
+  "reviews": [],
+  "state": "closed",
+  "title": "Preserve newer tap channels when replaying a release",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Do not merge. Synthetic fixtures deliberately trip the required checks, Ruby syntax and generated formula provenance. This branch names a fake release, carries no real credential and must never be published as a stable formula update. The issue reference is omitted to exercise rejection by the Issue link check.",
+  "closed_at": "2026-11-17T19:46:14-08:00",
+  "comments": [],
+  "created_at": "2026-11-17T19:40:34-08:00",
+  "head": "tap/dreame-valetudo/v999.0.0/formula",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": null,
+  "merged": false,
+  "milestone": null,
+  "number": 12,
+  "reviews": [],
+  "state": "closed",
+  "title": "WIP: Disposable draft to prove all required tap checks",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #6.\n\nSource: https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/tag/v0.3.0-rc.52\nPhase: formula.\n\nNo tests: Published package metadata and formula syntax are checked in this pull request.",
+  "closed_at": "2026-11-17T23:03:45-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `8ce57beb9f`: Straightforward generated formula version bump from rc51 to rc52 with bottle block removal (expected per the two-PR release workflow). No issues found.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-17T23:03:20-08:00",
+    "id": 37190,
+    "updated_at": "2026-11-17T23:03:20-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T23:02:52-08:00",
+  "head": "refs/pull/13/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "6b038e4cbbf17be5bb4fbc0de9c309de924fb387",
+  "merged": true,
+  "milestone": null,
+  "number": 13,
+  "reviews": [],
+  "state": "closed",
+  "title": "Update dreame-valetudo formula for v0.3.0-rc.52",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #6.\n\nSource: https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/tag/v0.3.0-rc.52\nPhase: bottles.\n\nNo tests: Published package metadata and formula syntax are checked in this pull request.",
+  "closed_at": "2026-11-17T23:09:35-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `ad476fa154`: Straightforward generated bottle update for dreame-valetudo v0.3.0-rc.52. The diff is minimal, correctly scoped, references the standing issue #6, and the No-tests justification matches CONTRIBUTING.md guidance for generated formula changes.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-17T23:08:20-08:00",
+    "id": 37210,
+    "updated_at": "2026-11-17T23:08:20-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T23:08:06-08:00",
+  "head": "refs/pull/14/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "7758a3159fed33513bfc0adcde91713d20e3f573",
+  "merged": true,
+  "milestone": null,
+  "number": 14,
+  "reviews": [],
+  "state": "closed",
+  "title": "Update dreame-valetudo bottles for v0.3.0-rc.52",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #6.\n\nSource: https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/tag/v0.2.0-rc.78\nPhase: formula.\n\nNo tests: Published package metadata and formula syntax are checked in this pull request.",
+  "closed_at": "2026-11-17T23:34:08-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `6fa358717e`: Straightforward generated formula update from rc77 to rc78: URL and sha256 bumped, stale bottle block for the previous version removed (new bottles arrive in a separate PR per the documented two-PR flow). No issues found.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-17T23:27:53-08:00",
+    "id": 37247,
+    "updated_at": "2026-11-17T23:27:53-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T23:27:45-08:00",
+  "head": "refs/pull/15/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "ad2f7bb04c7e1aad1743ffb93f4dbb773e6577c6",
+  "merged": true,
+  "milestone": null,
+  "number": 15,
+  "reviews": [],
+  "state": "closed",
+  "title": "Update whiskerless formula for v0.2.0-rc.78",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #6.\n\nSource: https://forgejo.bryantserver.com/SisyphusMD/whiskerless/releases/tag/v0.2.0-rc.78\nPhase: bottles.\n\nNo tests: Published package metadata and formula syntax are checked in this pull request.",
+  "closed_at": "2026-11-17T23:41:13-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `0351b4090d`: Straightforward generated bottle update for whiskerless v0.2.0-rc.78. The diff is minimal, the standing-issue reference (Refs #6) matches the CONTRIBUTING.md convention for generated release PRs, and the No tests line is valid per the project's rules for generated formula changes.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-17T23:39:58-08:00",
+    "id": 37269,
+    "updated_at": "2026-11-17T23:39:58-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-17T23:39:41-08:00",
+  "head": "refs/pull/16/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "e5b884b9779569f0919cae017e6d835a791bf042",
+  "merged": true,
+  "milestone": null,
+  "number": 16,
+  "reviews": [],
+  "state": "closed",
+  "title": "Update whiskerless bottles for v0.2.0-rc.78",
   "user": "cody"
  }
 ]
