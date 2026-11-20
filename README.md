@@ -20,3 +20,7 @@ Generated nightly from the primary Forgejo; do not edit. `json/` holds the full 
 | 14 | pull | closed | [Update dreame-valetudo bottles for v0.3.0-rc.52](items/0014-update-dreame-valetudo-bottles-for-v0-3-0-rc-52.md) |
 | 15 | pull | closed | [Update whiskerless formula for v0.2.0-rc.78](items/0015-update-whiskerless-formula-for-v0-2-0-rc-78.md) |
 | 16 | pull | closed | [Update whiskerless bottles for v0.2.0-rc.78](items/0016-update-whiskerless-bottles-for-v0-2-0-rc-78.md) |
+| 17 | issue | closed | [AI review: take the 40,000-token output cap and verdict-parse fix from project-rules](items/0017-ai-review-take-the-40-000-token-output-cap-and-verdict-parse.md) |
+| 18 | pull | closed | [AI review: 40,000-token output cap and verdict-parse fix](items/0018-ai-review-40-000-token-output-cap-and-verdict-parse-fix.md) |
+| 19 | issue | closed | [AI review: take the 40-minute deadline and 45-minute job limit from project-rules](items/0019-ai-review-take-the-40-minute-deadline-and-45-minute-job-limi.md) |
+| 20 | pull | closed | [AI review: 40-minute deadline inside a 45-minute job](items/0020-ai-review-40-minute-deadline-inside-a-45-minute-job.md) |

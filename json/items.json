@@ -388,5 +388,93 @@
   "state": "closed",
   "title": "Update whiskerless bottles for v0.2.0-rc.78",
   "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Copy of the canonical script from SisyphusMD/project-rules#105 (issues SisyphusMD/project-rules#103 and #104). The old 16,000-token output cap cut long reviews off before their verdict, and a </think> the model quoted could leak its reasoning ahead of the JSON so the verdict failed to parse. Cody approved the 40,000 cap on 2026-11-19.",
+  "closed_at": "2026-11-19T16:40:22-08:00",
+  "comments": [
+   {
+    "body": "Decision: Admin-merge the AI-review sync PR past its failing AI review check (Cody: \"Yes\"). Why: The required review runs main's old parser, which cannot parse a review of this diff (it quotes </think>); the copy is byte-identical to project-rules main and every other check is green.\n\nDecided by: Cody, 2026-11-19.",
+    "created_at": "2026-11-19T16:36:47-08:00",
+    "id": 38763,
+    "updated_at": "2026-11-19T16:36:47-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-19T12:34:17-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:bug"
+  ],
+  "milestone": null,
+  "number": 17,
+  "state": "closed",
+  "title": "AI review: take the 40,000-token output cap and verdict-parse fix from project-rules",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #17\n\nByte-identical copy of `.forgejo/scripts/ai-review.py` from SisyphusMD/project-rules#105 (tests live there):\n- the model output cap goes from 16,000 to 40,000 tokens (`MAX_OUTPUT_TOKENS` overrides it), since hidden reasoning alone ran past 16,000 on long reviews;\n- a cut-off answer fails closed with a status that says to split the PR or raise the cap, and every run logs token usage;\n- a `</think>` the model quotes no longer leaks its reasoning ahead of the verdict and breaks the parse.",
+  "closed_at": "2026-11-19T16:40:21-08:00",
+  "comments": [],
+  "created_at": "2026-11-19T12:35:46-08:00",
+  "head": "refs/pull/18/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "4842a5a21fe81561862afd7cfa6fa9c0386b660f",
+  "merged": true,
+  "milestone": null,
+  "number": 18,
+  "reviews": [],
+  "state": "closed",
+  "title": "AI review: 40,000-token output cap and verdict-parse fix",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Copy of the canonical AI review from SisyphusMD/project-rules#108 (issue SisyphusMD/project-rules#55). Reviews at the 40,000-token cap could outlast the 20-minute job, which was then killed with the required check left pending. Now a 40-minute deadline ends the review with an error status, inside a 45-minute job. Cody approved the 45-minute limit on 2026-11-19.",
+  "closed_at": "2026-11-19T18:12:09-08:00",
+  "comments": [],
+  "created_at": "2026-11-19T17:41:22-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:bug"
+  ],
+  "milestone": null,
+  "number": 19,
+  "state": "closed",
+  "title": "AI review: take the 40-minute deadline and 45-minute job limit from project-rules",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #19\n\nSync from SisyphusMD/project-rules#108 (byte-identical copies of the script and workflow; tests live there). A 40-minute deadline from the review's start ends a slow review with an error status instead of the job being killed at 20 minutes with the required check left pending. The job limit is now 45 minutes.",
+  "closed_at": "2026-11-19T18:12:08-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `691dc4c64d`: Clean sync of the AI review script and workflow from project-rules#108: a 40-minute SIGALRM deadline inside a 45-minute job replaces the old 20-minute hard kill, and the exception handling is restructured so every failure path sets an error status instead of leaving the required check pending. The signal/alarm usage, exception hierarchy, and try/finally ordering are all correct for a single-threaded CI script.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-19T17:48:11-08:00",
+    "id": 39153,
+    "updated_at": "2026-11-19T17:48:11-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-19T17:41:23-08:00",
+  "head": "refs/pull/20/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "3e892d093de3373771307c8675c07bf98ea79d12",
+  "merged": true,
+  "milestone": null,
+  "number": 20,
+  "reviews": [],
+  "state": "closed",
+  "title": "AI review: 40-minute deadline inside a 45-minute job",
+  "user": "cody"
  }
 ]
