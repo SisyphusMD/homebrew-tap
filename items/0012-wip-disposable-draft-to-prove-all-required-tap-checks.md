@@ -2,6 +2,6 @@
 
 - Kind: pull, state: closed, by cody, created 2026-11-17T19:40:34-08:00
 - Labels: none; milestone: none
-- tap/dreame-valetudo/v999.0.0/formula -> main, merged: False
+- refs/pull/12/head -> main, merged: False
 
 Do not merge. Synthetic fixtures deliberately trip the required checks, Ruby syntax and generated formula provenance. This branch names a fake release, carries no real credential and must never be published as a stable formula update. The issue reference is omitted to exercise rejection by the Issue link check.
