@@ -58,7 +58,7 @@ jobs:
           FORGEJO_URL: ${{ github.server_url }}
         run: |
           set -euo pipefail
-          # Always project-rules main (#78): one copy for every repo, outside the PR's checkout and
+          # Always main (SisyphusMD/project-rules#78): one copy for every repo, outside the PR's checkout and
           # with no local fallback, so the job fails when it cannot be fetched. The repo is public.
           timeout 120 git clone --quiet --depth 1 --single-branch --branch main \
             "$FORGEJO_URL/SisyphusMD/project-rules.git" /tmp/gate
@@ -66,7 +66,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # github.sha is the base branch's commit (pull_request_target) or the default branch's
-          # (issue_comment), never the PR's: named so the rules it reads cannot come from the PR it reviews.
+          # (issue_comment), never the PR's: named so the CONTRIBUTING.md it reads cannot come from the PR it reviews.
           ref: ${{ github.sha }}
           persist-credentials: false
       - name: Review the PR
