@@ -66,9 +66,9 @@ and nowhere else. How code, tests and docs are written is in [conventions/][conv
 ## Review and merge
 
 15. **Required checks**: `Issue link`, `Tests with code`, `Diff size`, `Lint`, `Secrets` and
-    `AI review`, plus the repo's own tests and coverage. They run from `main`'s copy
-    (`pull_request_target`), never run the PR's code, and fail closed, so a PR cannot weaken
-    the check that judges it.
+    `AI review`, plus the repo's own tests and coverage. They run the workflow on `main`
+    (`pull_request_target`) and the gate scripts on project-rules' `main`, never run the PR's
+    code, and fail closed, so a PR cannot weaken the check that judges it.
 16. **AI review findings**: fix what is real and push. When a finding is wrong, reply on the PR
     with the reason (the code is correct, the case cannot occur, a decision requires it, or
     the cost outweighs the risk); it re-reviews. Taste and "temporary" are not reasons. A
@@ -110,6 +110,17 @@ A PR to this repo that closes an issue here, with the maintainer's decision reco
 | Who or what | Exception | Decided |
 | --- | --- | --- |
 | Security fixes | Until the fix is released, the issue lives in a private repo (linked as `Closes owner/repo#n`, rule 23) and the PR describes the change, not how to exploit it | #62 |
+| Memory sync | [Automatic memory sync](#automatic-memory-sync) | #101 |
+
+### Automatic memory sync
+
+The sync identity may fast-forward `main` in the one private repository
+designated by the maintainer under #101. It must use a write credential scoped
+to that repository and verify that its commits contain only memory notes and
+their indexes. The sync checks changed files for credentials before pushing.
+This is an exception to the issue and PR path in rules 1, 6, and 19. Changes to
+tools, scripts, workflows, hooks, shared or local settings, and instructions
+follow the issue and PR path.
 
 <!-- Absolute, not relative: every repo carries this file as .forgejo/RULES.md, where a relative
      link points at nothing. tests/test_rules_links.py checks that this repo's targets exist. -->
