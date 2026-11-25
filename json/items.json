@@ -631,5 +631,175 @@
   "state": "closed",
   "title": "chore(ci): bring the AI review copy up to project-rules 72f8fcc",
   "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Cody decided on SisyphusMD/project-rules#78 (2026-11-24) that every repo runs the gate scripts from project-rules main instead of its own copy. Switch `ci.yml` and `ai-review.yml` to canonical, remove the four gate script copies, and copy `mirror-lockdown.yml` again for its source header. This is the pilot. issue-archive.py stays a copy.",
+  "closed_at": "2026-11-24T18:01:42-08:00",
+  "comments": [
+   {
+    "body": "Scope: `.forgejo/RULES.md` is synced to project-rules main (26da87ec) in the same PR. Rule 15 there changed with the shared scripts, the reviewer reads this copy, and rule 22 has it as a synced copy of the whole file, so it is copied verbatim rather than in parts.",
+    "created_at": "2026-11-24T18:00:34-08:00",
+    "id": 45866,
+    "updated_at": "2026-11-24T18:00:34-08:00",
+    "user": "cody"
+   },
+   {
+    "body": "Landed in #28 (27caff80). Proof on #30 (head bdf16d58): `Issue link` fetched project-rules 26da87ec and failed on the missing issue, then every required check passed with it named.",
+    "created_at": "2026-11-24T18:24:07-08:00",
+    "id": 45918,
+    "updated_at": "2026-11-24T18:24:07-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-24T17:52:02-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 27,
+  "state": "closed",
+  "title": "Run the gate scripts from project-rules main",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #27\n\nThis repo ran its own copies of the gate scripts, so a fix in project-rules needed a PR here. `ci.yml` and `ai-review.yml` are now project-rules main's (26da87ec), which fetch the scripts from project-rules main on every run and fail when they cannot. The four copies are removed; `check-release-formulae.py`, `open-release-formula-pr.py` and `issue-archive.py` stay. `mirror-lockdown.yml` and `.forgejo/RULES.md` are copied again from the same commit.\n\nLarge diff: 772 of the removed lines are the four deleted script copies, and the added lines are copied from project-rules main, where they were reviewed and tested.\n\nThe check jobs run from main, so this PR is judged by the old copies. The next PR proves the new ones.\n",
+  "closed_at": "2026-11-24T18:01:41-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `8eaff72d7d`: The PR correctly switches gate scripts to project-rules main per issue #27 and the project-rules#78 decision. The RULES.md whole-file sync is justified by rule 22 and explicitly scoped by the issue's latest comment. No new issues found.\n\n### Withdrawn\n\n- **F1** (blocking, `.forgejo/RULES.md:113`) Unrelated 'Automatic memory sync' section bundled into this PR: The new exception table row and the '### Automatic memory sync' section (lines 113–124) concern issue #101 (memory sync), not issue #27 (run gate scripts from project-rules main). Rule 7 requires every hunk to map to the issue or to something the change cannot work without; this section does neither. The rule 15 wording update is fine—it describes the new script-fetching mechanism. Remove the memory-sync rows and section from this PR and land them in a separate PR that closes #101.\n  - Reviewer: Withdrawn. Rule 22 requires `.forgejo/RULES.md` to be a synced copy of the whole file, and issue #27's latest comment explicitly scopes the sync to commit 26da87ec (the same commit the workflows come from). The memory-sync section landed in project-rules under its own issue (#101) and is already in force; partial syncing would produce a file matching no version of the rules, violating rule 22. This is a project decision, not an unrelated change.\n\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W3siaWQiOiAiRjEiLCAiZmlsZSI6ICIuZm9yZ2Vqby9SVUxFUy5tZCIsICJsaW5lIjogMTEzLCAic2V2ZXJpdHkiOiAiYmxvY2tpbmciLCAic3RhdHVzIjogIndpdGhkcmF3biIsICJ0aXRsZSI6ICJVbnJlbGF0ZWQgJ0F1dG9tYXRpYyBtZW1vcnkgc3luYycgc2VjdGlvbiBidW5kbGVkIGludG8gdGhpcyBQUiIsICJkZXRhaWwiOiAiVGhlIG5ldyBleGNlcHRpb24gdGFibGUgcm93IGFuZCB0aGUgJyMjIyBBdXRvbWF0aWMgbWVtb3J5IHN5bmMnIHNlY3Rpb24gKGxpbmVzIDExM1x1MjAxMzEyNCkgY29uY2VybiBpc3N1ZSAjMTAxIChtZW1vcnkgc3luYyksIG5vdCBpc3N1ZSAjMjcgKHJ1biBnYXRlIHNjcmlwdHMgZnJvbSBwcm9qZWN0LXJ1bGVzIG1haW4pLiBSdWxlIDcgcmVxdWlyZXMgZXZlcnkgaHVuayB0byBtYXAgdG8gdGhlIGlzc3VlIG9yIHRvIHNvbWV0aGluZyB0aGUgY2hhbmdlIGNhbm5vdCB3b3JrIHdpdGhvdXQ7IHRoaXMgc2VjdGlvbiBkb2VzIG5laXRoZXIuIFRoZSBydWxlIDE1IHdvcmRpbmcgdXBkYXRlIGlzIGZpbmVcdTIwMTRpdCBkZXNjcmliZXMgdGhlIG5ldyBzY3JpcHQtZmV0Y2hpbmcgbWVjaGFuaXNtLiBSZW1vdmUgdGhlIG1lbW9yeS1zeW5jIHJvd3MgYW5kIHNlY3Rpb24gZnJvbSB0aGlzIFBSIGFuZCBsYW5kIHRoZW0gaW4gYSBzZXBhcmF0ZSBQUiB0aGF0IGNsb3NlcyAjMTAxLiIsICJyZXNwb25zZSI6ICJXaXRoZHJhd24uIFJ1bGUgMjIgcmVxdWlyZXMgYC5mb3JnZWpvL1JVTEVTLm1kYCB0byBiZSBhIHN5bmNlZCBjb3B5IG9mIHRoZSB3aG9sZSBmaWxlLCBhbmQgaXNzdWUgIzI3J3MgbGF0ZXN0IGNvbW1lbnQgZXhwbGljaXRseSBzY29wZXMgdGhlIHN5bmMgdG8gY29tbWl0IDI2ZGE4N2VjICh0aGUgc2FtZSBjb21taXQgdGhlIHdvcmtmbG93cyBjb21lIGZyb20pLiBUaGUgbWVtb3J5LXN5bmMgc2VjdGlvbiBsYW5kZWQgaW4gcHJvamVjdC1ydWxlcyB1bmRlciBpdHMgb3duIGlzc3VlICgjMTAxKSBhbmQgaXMgYWxyZWFkeSBpbiBmb3JjZTsgcGFydGlhbCBzeW5jaW5nIHdvdWxkIHByb2R1Y2UgYSBmaWxlIG1hdGNoaW5nIG5vIHZlcnNpb24gb2YgdGhlIHJ1bGVzLCB2aW9sYXRpbmcgcnVsZSAyMi4gVGhpcyBpcyBhIHByb2plY3QgZGVjaXNpb24sIG5vdCBhbiB1bnJlbGF0ZWQgY2hhbmdlLiJ9XQ== -->",
+    "created_at": "2026-11-24T17:59:50-08:00",
+    "id": 45864,
+    "updated_at": "2026-11-24T18:00:58-08:00",
+    "user": "forgejo-actions"
+   },
+   {
+    "body": "F1: `.forgejo/RULES.md` is, by rule 22, \"a synced copy of this file\", so it is copied whole from project-rules main at the commit the workflows come from. The memory-sync exception is not a change made here: it landed in project-rules under its own issue there (project-rules#101, not an issue in this repo) and is already in force for every repo. Copying only the rule 15 hunk would leave a file that matches no version of the rules. #27 did not say this; its latest comment now puts the sync in scope.",
+    "created_at": "2026-11-24T18:00:34-08:00",
+    "id": 45867,
+    "updated_at": "2026-11-24T18:00:34-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-24T17:59:12-08:00",
+  "head": "refs/pull/28/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "27caff80def28d3bcb4ff6b42a65f35f174e58e0",
+  "merged": true,
+  "milestone": null,
+  "number": 28,
+  "reviews": [],
+  "state": "closed",
+  "title": "chore(gate): run the gate scripts from project-rules main",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "`ruff.toml` excludes all of `.forgejo/scripts` because the gate script copies follow project-rules' ruff settings. Those copies are gone (#27), so the exclusion now only hides this repo's own `check-release-formulae.py` and `open-release-formula-pr.py`. Exclude only `issue-archive.py`, which is still a copy.",
+  "closed_at": "2026-11-24T18:23:51-08:00",
+  "comments": [
+   {
+    "body": "Landed in #30 (b2ac20f3).",
+    "created_at": "2026-11-24T18:24:07-08:00",
+    "id": 45921,
+    "updated_at": "2026-11-24T18:24:07-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-24T18:02:10-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 29,
+  "state": "closed",
+  "title": "Lint this repo's own scripts",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #29\n\n`ruff.toml` excluded all of `.forgejo/scripts`, which hid this repo's two scripts from Lint once the gate script copies left (#27). Only `issue-archive.py`, still a copy, is excluded now; `ruff check .` covers both scripts and passes.\n\nThis description first had no issue, so that the fetched `Issue link` had to fail; that run is the failing proof for #27.",
+  "closed_at": "2026-11-24T18:23:50-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `bdf16d58e7`: The PR narrows the ruff exclusion from the entire `.forgejo/scripts` directory to just `issue-archive.py`, correctly bringing the repo's own scripts under linting as described in issue #29. The earlier finding about a missing issue link is resolved.\n\n### Resolved\n\n- **F1** (blocking, `ruff.toml:1`) No linked issue (rules 1 and 6): The PR description now includes `Closes #29` and issue #29 exists with a matching description. Rules 1 and 6 are satisfied.\n\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W3siaWQiOiAiRjEiLCAiZmlsZSI6ICJydWZmLnRvbWwiLCAibGluZSI6IDEsICJzZXZlcml0eSI6ICJibG9ja2luZyIsICJzdGF0dXMiOiAicmVzb2x2ZWQiLCAidGl0bGUiOiAiTm8gbGlua2VkIGlzc3VlIChydWxlcyAxIGFuZCA2KSIsICJkZXRhaWwiOiAiVGhlIFBSIGRlc2NyaXB0aW9uIG5vdyBpbmNsdWRlcyBgQ2xvc2VzICMyOWAgYW5kIGlzc3VlICMyOSBleGlzdHMgd2l0aCBhIG1hdGNoaW5nIGRlc2NyaXB0aW9uLiBSdWxlcyAxIGFuZCA2IGFyZSBzYXRpc2ZpZWQuIiwgInJlc3BvbnNlIjogIiJ9XQ== -->",
+    "created_at": "2026-11-24T18:11:02-08:00",
+    "id": 45902,
+    "updated_at": "2026-11-24T18:22:54-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-24T18:05:48-08:00",
+  "head": "refs/pull/30/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "b2ac20f352933d40f99459912aa59f293a36fbdc",
+  "merged": true,
+  "milestone": null,
+  "number": 30,
+  "reviews": [],
+  "state": "closed",
+  "title": "chore(lint): lint this repo's own scripts",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Decided on SisyphusMD/project-rules#78 (2026-11-24): every repo runs the gate scripts, and the AI review reads the rules, from project-rules main instead of its own copies. Switch `ci.yml` and `ai-review.yml` to canonical (project-rules af7417d1; this also brings in the canonical commenter gate where it was missing), and remove the four gate script copies and `.forgejo/RULES.md` in the same change. Where present, copy `mirror-lockdown.yml` again for its source header. issue-archive.py stays a copy.",
+  "closed_at": "2026-11-24T19:17:30-08:00",
+  "comments": [
+   {
+    "body": "Landed in #32 (dabc9c43). This repo now reads both the gate scripts and the rules from project-rules main.",
+    "created_at": "2026-11-24T19:19:48-08:00",
+    "id": 46146,
+    "updated_at": "2026-11-24T19:19:48-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-24T19:05:46-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 31,
+  "state": "closed",
+  "title": "Run the gate scripts and rules from project-rules main",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #31\n\nThis repo ran its own copies of the gate scripts and kept a copy of the rules for the AI review, and copies drift. `ci.yml` and `ai-review.yml` now fetch the scripts and `RULES.md` from project-rules main on every run and fail when they cannot (SisyphusMD/project-rules#78). The gate jobs and `ai-review.yml` are project-rules main's (6a6d41b4), and the copies are removed in the same change, so no run is left without either.\n\nThe scripts moved in #27; this drops the rules copy and re-copies the two workflows, whose comments changed.\n\nLarge diff: 129 of the removed lines are the deleted copies, and the added workflow lines come from project-rules main, where they were reviewed and tested.\n",
+  "closed_at": "2026-11-24T19:17:29-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `61d76533fb`: PR removes the now-unused local RULES.md copy and corrects comments in ci.yml and ai-review.yml to reflect that the checkout step reads CONTRIBUTING.md rather than RULES.md. All changes are comment-only or a file deletion, directly serving issue #31, with no functional code changes.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-24T19:11:46-08:00",
+    "id": 46087,
+    "updated_at": "2026-11-24T19:11:46-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-24T19:11:26-08:00",
+  "head": "refs/pull/32/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "dabc9c4330289404c1da836aa641990c7a4260c6",
+  "merged": true,
+  "milestone": null,
+  "number": 32,
+  "reviews": [],
+  "state": "closed",
+  "title": "chore(gate): run the gate scripts and rules from project-rules main",
+  "user": "cody"
  }
 ]

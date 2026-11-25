@@ -30,3 +30,9 @@ Generated nightly from the primary Forgejo; do not edit. `json/` holds the full 
 | 24 | pull | closed | [chore(ci): copy the AI review from project-rules 0e929cc](items/0024-chore-ci-copy-the-ai-review-from-project-rules-0e929cc.md) |
 | 25 | issue | closed | [chore(ci): bring the AI review copy up to project-rules 72f8fcc](items/0025-chore-ci-bring-the-ai-review-copy-up-to-project-rules-72f8fc.md) |
 | 26 | pull | closed | [chore(ci): bring the AI review copy up to project-rules 72f8fcc](items/0026-chore-ci-bring-the-ai-review-copy-up-to-project-rules-72f8fc.md) |
+| 27 | issue | closed | [Run the gate scripts from project-rules main](items/0027-run-the-gate-scripts-from-project-rules-main.md) |
+| 28 | pull | closed | [chore(gate): run the gate scripts from project-rules main](items/0028-chore-gate-run-the-gate-scripts-from-project-rules-main.md) |
+| 29 | issue | closed | [Lint this repo's own scripts](items/0029-lint-this-repo-s-own-scripts.md) |
+| 30 | pull | closed | [chore(lint): lint this repo's own scripts](items/0030-chore-lint-lint-this-repo-s-own-scripts.md) |
+| 31 | issue | closed | [Run the gate scripts and rules from project-rules main](items/0031-run-the-gate-scripts-and-rules-from-project-rules-main.md) |
+| 32 | pull | closed | [chore(gate): run the gate scripts and rules from project-rules main](items/0032-chore-gate-run-the-gate-scripts-and-rules-from-project-rules.md) |
