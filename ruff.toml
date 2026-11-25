@@ -1,2 +1,2 @@
-# The canonical gate scripts follow project-rules' Ruff configuration.
-extend-exclude = [".forgejo/scripts"]
+# issue-archive.py is a copy of project-rules, which lints it under its own Ruff configuration.
+extend-exclude = [".forgejo/scripts/issue-archive.py"]
