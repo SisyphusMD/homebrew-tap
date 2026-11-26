@@ -801,5 +801,118 @@
   "state": "closed",
   "title": "chore(gate): run the gate scripts and rules from project-rules main",
   "user": "cody"
+ },
+ {
+  "assignees": [],
+  "body": "Pilot for SisyphusMD/project-rules#78: this repo's ci.yml and ai-review.yml become small callers of project-rules main's gate.yml, gate-lint.yml and review.yml (project-rules#129), so the jobs stop being copies here. Check names stay the same. After it merges, one PR here is proven failing and then passing on the called jobs before any other repo switches.\n\nClaude has this.",
+  "closed_at": "2026-11-25T18:46:16-08:00",
+  "comments": [
+   {
+    "body": "Landed in #34 (8512d261). Proven on proof PR #35, closed unmerged: with no issue named, CI / Issue link (pull_request_target) failed (run 47766); after the description named #33 every required check passed under its usual name (run 47811), the fork guard ran, and a maintainer reply re-ran the review through the called workflow (run 47842). Each caller adds CI / shared-gate, CI / shared-lint and AI review / shared-review, which nothing requires.",
+    "created_at": "2026-11-25T21:19:58-08:00",
+    "id": 47681,
+    "updated_at": "2026-11-25T21:19:58-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-25T18:43:14-08:00",
+  "kind": "issue",
+  "labels": [
+   "status:in-progress",
+   "type:chore"
+  ],
+  "milestone": null,
+  "number": 33,
+  "state": "closed",
+  "title": "Call the shared gate and AI review workflows instead of copying them",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Closes #33\n\n`ci.yml` and `ai-review.yml` carried copies of the gate and AI review jobs, and copies drift. They now call project-rules main's `gate.yml`, `gate-lint.yml` and `review.yml` (SisyphusMD/project-rules#78, #129) and keep only what a called workflow cannot hold: the triggers, the concurrency groups and the one secret the jobs may see, `ISSUE_READ_TOKEN`. Check names stay the same; each calling job adds one check of its own (`CI / shared-gate` and so on), which nothing requires.\n\nThis PR is judged by the old copies, because `pull_request_target` runs main's files. The pilot proof comes after it merges: one PR here failing and then passing on the called jobs, before any other repo switches.\n\nNo tests: workflow wiring only, checked by project-rules' tests of the called files and by the proof PR after merge.\n",
+  "closed_at": "2026-11-25T18:46:16-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `9265904020`: Clean refactoring that replaces inline gate/review job copies with calls to shared reusable workflows in project-rules. The caller files retain only triggers, concurrency, and the one non-auto secret. No correctness, security, or test issues found.\n\n### Resolved\n\n- **F1** (suggestion, `.forgejo/workflows/ci.yml:5`) Comment contradicts itself: \"no repo carries a copy\" vs \"repos get a copy\": The added sentence \"Only this caller is copied\" now bridges the two statements: \"no repo copies the jobs\" refers to the job implementations, while \"repos get a copy\" refers to this thin caller file. The contradiction is resolved.\n\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W3siaWQiOiAiRjEiLCAiZmlsZSI6ICIuZm9yZ2Vqby93b3JrZmxvd3MvY2kueW1sIiwgImxpbmUiOiA1LCAic2V2ZXJpdHkiOiAic3VnZ2VzdGlvbiIsICJzdGF0dXMiOiAicmVzb2x2ZWQiLCAidGl0bGUiOiAiQ29tbWVudCBjb250cmFkaWN0cyBpdHNlbGY6IFwibm8gcmVwbyBjYXJyaWVzIGEgY29weVwiIHZzIFwicmVwb3MgZ2V0IGEgY29weVwiIiwgImRldGFpbCI6ICJUaGUgYWRkZWQgc2VudGVuY2UgXCJPbmx5IHRoaXMgY2FsbGVyIGlzIGNvcGllZFwiIG5vdyBicmlkZ2VzIHRoZSB0d28gc3RhdGVtZW50czogXCJubyByZXBvIGNvcGllcyB0aGUgam9ic1wiIHJlZmVycyB0byB0aGUgam9iIGltcGxlbWVudGF0aW9ucywgd2hpbGUgXCJyZXBvcyBnZXQgYSBjb3B5XCIgcmVmZXJzIHRvIHRoaXMgdGhpbiBjYWxsZXIgZmlsZS4gVGhlIGNvbnRyYWRpY3Rpb24gaXMgcmVzb2x2ZWQuIiwgInJlc3BvbnNlIjogIiJ9XQ== -->",
+    "created_at": "2026-11-25T18:44:50-08:00",
+    "id": 47574,
+    "updated_at": "2026-11-25T18:45:37-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-25T18:44:18-08:00",
+  "head": "refs/pull/34/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "8512d2613c4203acddcd79c7f692fd07b5a47c4f",
+  "merged": true,
+  "milestone": null,
+  "number": 34,
+  "reviews": [],
+  "state": "closed",
+  "title": "chore(gate): call the shared gate and AI review workflows",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #33\n\nProof run for the shared gate workflows: the first description named no issue, so Issue link failed; this one names #33. Closed unmerged.\n\nNo tests: a proof run that is never merged.",
+  "closed_at": "2026-11-25T21:19:45-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `492f29ccf1`: Trivial proof-run PR (one blank line in CONTRIBUTING.md) to verify the shared gate workflows work, explicitly closed unmerged. The `No tests:` reason is valid for a change that never lands, and the diff is minimal. No issues found.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-25T18:47:00-08:00",
+    "id": 47580,
+    "updated_at": "2026-11-25T20:48:24-08:00",
+    "user": "forgejo-actions"
+   },
+   {
+    "body": "Proof: a maintainer reply should re-run the review through the called workflow.",
+    "created_at": "2026-11-25T20:48:11-08:00",
+    "id": 47673,
+    "updated_at": "2026-11-25T20:48:11-08:00",
+    "user": "cody"
+   }
+  ],
+  "created_at": "2026-11-25T18:46:50-08:00",
+  "head": "refs/pull/35/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": null,
+  "merged": false,
+  "milestone": null,
+  "number": 35,
+  "reviews": [],
+  "state": "closed",
+  "title": "test: proof run for the shared gate (close unmerged)",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs SisyphusMD/project-rules#78\n\nThe pilot callers here predate two header fixes in project-rules: a bare `(#78)` pointed at this repo's issue #78, and line 1 now says protection requires every called job. Both files are now byte-equal to project-rules main's callers.\n\nNo tests: header comments only.",
+  "closed_at": "2026-11-25T22:20:34-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `b08b2834f5`: Comment-only header corrections in two workflow files to match the canonical project-rules versions: fixes the ambiguous bare `(#78)` to `SisyphusMD/project-rules#78` and aligns wording. No behavior changes, no tests needed.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-25T22:19:01-08:00",
+    "id": 47930,
+    "updated_at": "2026-11-25T22:19:01-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-25T22:18:49-08:00",
+  "head": "refs/pull/36/head",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "0453a32bb92fe73cac083d0c063f619d5bfb0108",
+  "merged": true,
+  "milestone": null,
+  "number": 36,
+  "reviews": [],
+  "state": "closed",
+  "title": "docs(gate): match the canonical caller headers",
+  "user": "cody"
  }
 ]

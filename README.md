@@ -36,3 +36,7 @@ Generated nightly from the primary Forgejo; do not edit. `json/` holds the full 
 | 30 | pull | closed | [chore(lint): lint this repo's own scripts](items/0030-chore-lint-lint-this-repo-s-own-scripts.md) |
 | 31 | issue | closed | [Run the gate scripts and rules from project-rules main](items/0031-run-the-gate-scripts-and-rules-from-project-rules-main.md) |
 | 32 | pull | closed | [chore(gate): run the gate scripts and rules from project-rules main](items/0032-chore-gate-run-the-gate-scripts-and-rules-from-project-rules.md) |
+| 33 | issue | closed | [Call the shared gate and AI review workflows instead of copying them](items/0033-call-the-shared-gate-and-ai-review-workflows-instead-of-copy.md) |
+| 34 | pull | closed | [chore(gate): call the shared gate and AI review workflows](items/0034-chore-gate-call-the-shared-gate-and-ai-review-workflows.md) |
+| 35 | pull | closed | [test: proof run for the shared gate (close unmerged)](items/0035-test-proof-run-for-the-shared-gate-close-unmerged.md) |
+| 36 | pull | closed | [docs(gate): match the canonical caller headers](items/0036-docs-gate-match-the-canonical-caller-headers.md) |
