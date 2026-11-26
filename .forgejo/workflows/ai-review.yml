@@ -1,8 +1,8 @@
 # CodeRabbit-style review on the house LLM; main's protection requires its `AI review` status.
-# The job is SisyphusMD/project-rules main's review.yml, so no repo carries a copy (#78), and
+# The job is SisyphusMD/project-rules main's review.yml, so no repo copies the job (#78), and
 # pull_request_target and issue_comment both run this file from main, so a PR cannot change how
 # it is reviewed. A reply on the PR re-runs the review, which can withdraw a finding.
-# Canonical copy: SisyphusMD/project-rules; repos get a copy.
+# Only this caller is copied. Canonical copy: SisyphusMD/project-rules; repos get a copy.
 name: AI review
 on:
   pull_request_target:
