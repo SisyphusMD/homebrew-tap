@@ -15,16 +15,9 @@ class DreameValetudoRc < Formula
 
   desc "Root supported Dreame robot vacuums and install Valetudo (release candidate)"
   homepage "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo"
-  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc52.tar.gz"
-  sha256 "28f07f126b02d9a5c9cb3916c11490ef50bdf602f179395b08a25ec76600b2bf"
+  url "https://files.pythonhosted.org/packages/source/d/dreame-valetudo/dreame_valetudo-0.3.0rc53.tar.gz"
+  sha256 "dce5844603b6833472dfbeb7955e3fb76332fc5d7f8059666663077af2be718f"
   license "GPL-3.0-or-later"
-
-  bottle do
-    root_url "https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/download/v0.3.0-rc.52"
-    sha256 cellar: :any, arm64_sequoia: "7cb89b05d1bc70a248f0fdb5480e3638c84c763bb256beb7d69adcda81bf8f72"
-    sha256 cellar: :any, x86_64_linux:  "9e19e8d7a37d6906f2632646f0b2cd92d2622434779c4f34b20264f3108bd3e8"
-    sha256 cellar: :any, arm64_linux:   "1bcc4d5a9b63c306088e96edc17f59025a9a23c0b635e8498a83aee618f45e25"
-  end
 
 
   # Installs the same `dreame-valetudo` command as the stable formula, so the two can't coexist.
@@ -54,7 +47,7 @@ class DreameValetudoRc < Formula
   # substitution and no second digest that could drift out of sync with it.
   resource "sunxi-tools" do
     url "https://github.com/linux-sunxi/sunxi-tools.git",
-        revision: "34dfa20f8284273085666436e4cac09af19646c8"
+        revision: "0237931bb3d66de17c441a3c94d0e4b39e1308d1"
   end
 
   resource "pyusb" do
@@ -98,7 +91,7 @@ class DreameValetudoRc < Formula
         #{homepage}
 
       Just run `dreame-valetudo` (no arguments). sunxi-fel is already built and bundled, so the
-      only thing the first run fetches is the pinned Valetudo binary. It talks to the robot over
+      first run fetches only the pinned stage 1 boot package and Valetudo binary. It talks to the robot over
       the robot's own Wi-Fi AP, not your LAN.
 
       Your workspace lives under ~/dreame-valetudo/ (work/ + backups/). After upgrading, the first
