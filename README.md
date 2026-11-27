@@ -41,3 +41,5 @@ Generated nightly from the primary Forgejo; do not edit. `json/` holds the full 
 | 35 | pull | closed | [test: proof run for the shared gate (close unmerged)](items/0035-test-proof-run-for-the-shared-gate-close-unmerged.md) |
 | 36 | pull | closed | [docs(gate): match the canonical caller headers](items/0036-docs-gate-match-the-canonical-caller-headers.md) |
 | 37 | pull | closed | [ci: map PROJECT_RULES_TOKEN into the shared jobs](items/0037-ci-map-project-rules-token-into-the-shared-jobs.md) |
+| 38 | issue | closed | [Call project-rules' shared issue-archive workflow](items/0038-call-project-rules-shared-issue-archive-workflow.md) |
+| 39 | pull | closed | [chore(ci): call the shared issue-archive workflow](items/0039-chore-ci-call-the-shared-issue-archive-workflow.md) |
