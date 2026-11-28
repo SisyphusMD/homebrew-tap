@@ -15,4 +15,3 @@ concurrency:
 jobs:
   shared-archive:
     uses: SisyphusMD/project-rules/.forgejo/workflows/archive.yml@main
-    secrets: inherit
