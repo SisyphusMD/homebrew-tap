@@ -946,7 +946,15 @@
   "assignees": [],
   "body": "project-rules now runs the issue-archive job from its main (SisyphusMD/project-rules#144). Replace this repo's .forgejo/workflows/issue-archive.yml with the new caller and delete .forgejo/scripts/issue-archive.py, which no longer runs and fell behind main.",
   "closed_at": "2026-11-27T07:05:28-08:00",
-  "comments": [],
+  "comments": [
+   {
+    "body": "Done: #39 merged and verified; a dispatched Issue archive run went through the shared workflow and pushed the archive branch. Branch removed.",
+    "created_at": "2026-11-27T07:14:02-08:00",
+    "id": 49992,
+    "updated_at": "2026-11-27T07:14:02-08:00",
+    "user": "cody"
+   }
+  ],
   "created_at": "2026-11-27T07:01:29-08:00",
   "kind": "issue",
   "labels": [
@@ -974,7 +982,7 @@
    }
   ],
   "created_at": "2026-11-27T07:01:30-08:00",
-  "head": "chore/38-shared-archive",
+  "head": "refs/pull/39/head",
   "kind": "pull",
   "labels": [],
   "merge_commit_sha": "d58d119c19478b976de7e9f2a5fe0e4c264aa77a",
@@ -984,6 +992,60 @@
   "reviews": [],
   "state": "closed",
   "title": "chore(ci): call the shared issue-archive workflow",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #6.\n\nSource: https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/tag/v0.3.0-rc.53\nPhase: formula.\n\nNo tests: Published package metadata and formula syntax are checked in this pull request.",
+  "closed_at": "2026-11-27T08:59:31-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `c5ad2895d7`: Straightforward generated formula update for v0.3.0-rc.53: URL/sha256 bumped, bottle block removed (expected for the formula phase per CONTRIBUTING.md), sunxi-tools revision updated, and a comment corrected to reflect the new fetch behaviour. All changes map to the release update; the No tests line matches the CONTRIBUTING.md guidance for generated formula changes.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-27T08:37:03-08:00",
+    "id": 50220,
+    "updated_at": "2026-11-27T08:37:03-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-27T08:34:58-08:00",
+  "head": "tap/dreame-valetudo/v0.3.0-rc.53/formula",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "66128a7b74abd0f75a22b855d0f3343e8bdad9be",
+  "merged": true,
+  "milestone": null,
+  "number": 40,
+  "reviews": [],
+  "state": "closed",
+  "title": "Update dreame-valetudo formula for v0.3.0-rc.53",
+  "user": "cody"
+ },
+ {
+  "assignees": [],
+  "base": "main",
+  "body": "Refs #6.\n\nSource: https://forgejo.bryantserver.com/SisyphusMD/dreame-valetudo/releases/tag/v0.3.0-rc.53\nPhase: bottles.\n\nNo tests: Published package metadata and formula syntax are checked in this pull request.",
+  "closed_at": "2026-11-27T09:49:04-08:00",
+  "comments": [
+   {
+    "body": "<!-- ai-review -->\n**AI review** of `5ea563f823`: Straightforward generated bottle-declaration update for dreame-valetudo-rc v0.3.0-rc.53, following the standing-issue pattern described in CONTRIBUTING.md. The diff is minimal, the issue reference is correct for a standing issue, and the No-tests justification matches the generated-formula exception.\n\nNo findings.\n\nDisagree? Reply on this PR with your reasoning; the reviewer re-reads every reply.\n<!-- ai-review-state W10= -->",
+    "created_at": "2026-11-27T09:48:15-08:00",
+    "id": 50331,
+    "updated_at": "2026-11-27T09:48:15-08:00",
+    "user": "forgejo-actions"
+   }
+  ],
+  "created_at": "2026-11-27T09:23:48-08:00",
+  "head": "tap/dreame-valetudo/v0.3.0-rc.53/bottles",
+  "kind": "pull",
+  "labels": [],
+  "merge_commit_sha": "113088e6252ce9ad189566300f53e88243020ecc",
+  "merged": true,
+  "milestone": null,
+  "number": 41,
+  "reviews": [],
+  "state": "closed",
+  "title": "Update dreame-valetudo bottles for v0.3.0-rc.53",
   "user": "cody"
  }
 ]

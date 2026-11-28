@@ -43,3 +43,5 @@ Generated nightly from the primary Forgejo; do not edit. `json/` holds the full 
 | 37 | pull | closed | [ci: map PROJECT_RULES_TOKEN into the shared jobs](items/0037-ci-map-project-rules-token-into-the-shared-jobs.md) |
 | 38 | issue | closed | [Call project-rules' shared issue-archive workflow](items/0038-call-project-rules-shared-issue-archive-workflow.md) |
 | 39 | pull | closed | [chore(ci): call the shared issue-archive workflow](items/0039-chore-ci-call-the-shared-issue-archive-workflow.md) |
+| 40 | pull | closed | [Update dreame-valetudo formula for v0.3.0-rc.53](items/0040-update-dreame-valetudo-formula-for-v0-3-0-rc-53.md) |
+| 41 | pull | closed | [Update dreame-valetudo bottles for v0.3.0-rc.53](items/0041-update-dreame-valetudo-bottles-for-v0-3-0-rc-53.md) |

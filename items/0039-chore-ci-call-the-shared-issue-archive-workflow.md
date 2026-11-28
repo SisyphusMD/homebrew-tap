@@ -2,7 +2,7 @@
 
 - Kind: pull, state: closed, by cody, created 2026-11-27T07:01:30-08:00
 - Labels: none; milestone: none
-- chore/38-shared-archive -> main, merged: True
+- refs/pull/39/head -> main, merged: True
 
 Replaces the copied issue-archive job with the caller from project-rules main and deletes the copied script, which no longer runs.
 
